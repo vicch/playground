@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="height:600px;width:600px;margin:10% auto;"></div>
+    <!-- ECharts单文件引入 -->
+    <script src="echarts.js"></script>
+
+    <script type="text/javascript">
+        // 路径配置
+        require.config({
+            paths: {
+                echarts: 'http://echarts.baidu.com/build/dist'
+            }
+        });
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/chord'
+            ],
+            function (ec) {
+                // 初始化
+                var myChart = ec.init(document.getElementById('main'), 'macarons'); 
+                option = {
+                    // title : {
+                    //     text: '德国队效力联盟',
+                    //     x:'right',
+                    //     y:'bottom'
+                    // },
+                    tooltip : {
+                        trigger: 'item',
+                        formatter: function (params) {
+                            if (params.indicator2) {    // is edge
+                                return params.indicator2 + ' ' + params.name + ' ' + params.indicator;
+                            } else {    // is node
+                                return params.name
+                            }
+                        }
+                    },
+                    // toolbox: {
+                    //     show : true,
+                    //     feature : {
+                    //         restore : {show: true},
+                    //         magicType: {show: true, type: ['force', 'chord']},
+                    //         saveAsImage : {show: true}
+                    //     }
+                    // },
+                    legend: {
+                        x: 'left',
+                        data: ['普', '火', '水', '电', '草', '冰', '格', '毒', '地', '飞', '超', '虫', '岩', '鬼', '龙', '恶', '钢'],
+                    },
+                    series : [
+                        {
+                            type:'chord',
+                            sort : 'ascending',
+                            sortSub : 'descending',
+                            showScale : false,
+                            itemStyle : {
+                                normal : {
+                                    label : {
+                                        rotate : true
+                                    }
+                                }
+                            },
+                            // 使用 nodes links 表达和弦图
+                            nodes: [
+                                {name:'普'},
+                                {name:'火'},
+                                {name:'水'},
+                                {name:'电'},
+                                {name:'草'},
+                                {name:'冰'},
+                                {name:'格'},
+                                {name:'毒'},
+                                {name:'地'},
+                                {name:'飞'},
+                                {name:'超'},
+                                {name:'虫'},
+                                {name:'岩'},
+                                {name:'鬼'},
+                                {name:'龙'},
+                                {name:'恶'},
+                                {name:'钢'},
+                            ],
+                            links: [
+                                {source: '火', target: '草', weight: 0.9, name: '克'},
+                                {source: '火', target: '冰', weight: 0.9, name: '克'},
+                                {source: '火', target: '虫', weight: 0.9, name: '克'},
+                                {source: '火', target: '钢', weight: 0.9, name: '克'},
+                                {source: '水', target: '火', weight: 0.9, name: '克'},
+                                {source: '水', target: '地', weight: 0.9, name: '克'},
+                                {source: '水', target: '岩', weight: 0.9, name: '克'},
+                                {source: '电', target: '水', weight: 0.9, name: '克'},
+                                {source: '电', target: '飞', weight: 0.9, name: '克'},
+                                {source: '草', target: '水', weight: 0.9, name: '克'},
+                                {source: '草', target: '地', weight: 0.9, name: '克'},
+                                {source: '草', target: '岩', weight: 0.9, name: '克'},
+                                {source: '冰', target: '草', weight: 0.9, name: '克'},
+                                {source: '冰', target: '地', weight: 0.9, name: '克'},
+                                {source: '冰', target: '飞', weight: 0.9, name: '克'},
+                                {source: '冰', target: '龙', weight: 0.9, name: '克'},
+                                {source: '格', target: '普', weight: 0.9, name: '克'},
+                                {source: '格', target: '冰', weight: 0.9, name: '克'},
+                                {source: '格', target: '虫', weight: 0.9, name: '克'},
+                                {source: '格', target: '恶', weight: 0.9, name: '克'},
+                                {source: '格', target: '钢', weight: 0.9, name: '克'},
+                                {source: '毒', target: '草', weight: 0.9, name: '克'},
+                                {source: '地', target: '火', weight: 0.9, name: '克'},
+                                {source: '地', target: '电', weight: 0.9, name: '克'},
+                                {source: '地', target: '毒', weight: 0.9, name: '克'},
+                                {source: '地', target: '岩', weight: 0.9, name: '克'},
+                                {source: '地', target: '钢', weight: 0.9, name: '克'},
+                                {source: '飞', target: '草', weight: 0.9, name: '克'},
+                                {source: '飞', target: '格', weight: 0.9, name: '克'},
+                                {source: '飞', target: '虫', weight: 0.9, name: '克'},
+                                {source: '超', target: '格', weight: 0.9, name: '克'},
+                                {source: '超', target: '毒', weight: 0.9, name: '克'},
+                                {source: '虫', target: '草', weight: 0.9, name: '克'},
+                                {source: '虫', target: '超', weight: 0.9, name: '克'},
+                                {source: '虫', target: '恶', weight: 0.9, name: '克'},
+                                {source: '岩', target: '火', weight: 0.9, name: '克'},
+                                {source: '岩', target: '冰', weight: 0.9, name: '克'},
+                                {source: '岩', target: '飞', weight: 0.9, name: '克'},
+                                {source: '岩', target: '虫', weight: 0.9, name: '克'},
+                                {source: '鬼', target: '超', weight: 0.9, name: '克'},
+                                {source: '鬼', target: '鬼', weight: 0.9, name: '克'},
+                                {source: '龙', target: '龙', weight: 0.9, name: '克'},
+                                {source: '恶', target: '超', weight: 0.9, name: '克'},
+                                {source: '恶', target: '鬼', weight: 0.9, name: '克'},
+                                {source: '钢', target: '冰', weight: 0.9, name: '克'},
+                                {source: '钢', target: '岩', weight: 0.9, name: '克'},
+
+                                {target: '火', source: '草', weight: 1},
+                                {target: '火', source: '冰', weight: 1},
+                                {target: '火', source: '虫', weight: 1},
+                                {target: '火', source: '钢', weight: 1},
+                                {target: '水', source: '火', weight: 1},
+                                {target: '水', source: '地', weight: 1},
+                                {target: '水', source: '岩', weight: 1},
+                                {target: '电', source: '水', weight: 1},
+                                {target: '电', source: '飞', weight: 1},
+                                {target: '草', source: '水', weight: 1},
+                                {target: '草', source: '地', weight: 1},
+                                {target: '草', source: '岩', weight: 1},
+                                {target: '冰', source: '草', weight: 1},
+                                {target: '冰', source: '地', weight: 1},
+                                {target: '冰', source: '飞', weight: 1},
+                                {target: '冰', source: '龙', weight: 1},
+                                {target: '格', source: '普', weight: 1},
+                                {target: '格', source: '冰', weight: 1},
+                                {target: '格', source: '虫', weight: 1},
+                                {target: '格', source: '恶', weight: 1},
+                                {target: '格', source: '钢', weight: 1},
+                                {target: '毒', source: '草', weight: 1},
+                                {target: '地', source: '火', weight: 1},
+                                {target: '地', source: '电', weight: 1},
+                                {target: '地', source: '毒', weight: 1},
+                                {target: '地', source: '岩', weight: 1},
+                                {target: '地', source: '钢', weight: 1},
+                                {target: '飞', source: '草', weight: 1},
+                                {target: '飞', source: '格', weight: 1},
+                                {target: '飞', source: '虫', weight: 1},
+                                {target: '超', source: '格', weight: 1},
+                                {target: '超', source: '毒', weight: 1},
+                                {target: '虫', source: '草', weight: 1},
+                                {target: '虫', source: '超', weight: 1},
+                                {target: '虫', source: '恶', weight: 1},
+                                {target: '岩', source: '火', weight: 1},
+                                {target: '岩', source: '冰', weight: 1},
+                                {target: '岩', source: '飞', weight: 1},
+                                {target: '岩', source: '虫', weight: 1},
+                                {target: '鬼', source: '超', weight: 1},
+                                {target: '鬼', source: '鬼', weight: 1},
+                                {target: '龙', source: '龙', weight: 1},
+                                {target: '恶', source: '超', weight: 1},
+                                {target: '恶', source: '鬼', weight: 1},
+                                {target: '钢', source: '冰', weight: 1},
+                                {target: '钢', source: '岩', weight: 1},
+                            ]
+                        }
+                    ]
+                };
+                // 加载数据 
+                myChart.setOption(option); 
+            }
+        );
+    </script>
+</body>
