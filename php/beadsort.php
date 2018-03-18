@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @param $array
+ * @param int $max
+ * @param bool $reverse
+ * @return array
+ */
 function beadsort($array, $max = 10, $reverse = false) {
     $count = count($array);
     
