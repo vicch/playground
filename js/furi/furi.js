@@ -5,45 +5,45 @@ $('#text-original').bind('input', function() {
 });
 
 function convertToFuri(text) {
-	// Input pattern is "kanjikana(kana)"
-	var re = /(.*)\((.*)\)/i;
-	var parts = text.match(re);
-
-	// Pattern not found
-	if (!parts || !parts[1] || !parts[2]) {
-		return '';
-	}
-
-	var kanjikana = parts[1];
-	var kana = parts[2];
 	var furi = '';
 
-	// i = kanjikana pointer
-	// j = kana pointer
-	var j = 0;
-	for (var i = 0; i < kanjikana.length; i++) {
-		if (isKana(kanjikana.charAt(i))) {
-			// console.log('kana: ' + kanjikana.charAt(i));
+	// Input pattern is "kanjikana(kana)"
+	var re = /([^()]*)\(([^()]*)\)/i;
 
-			// Kana found
-			furi += kanjikana.charAt(i);
-		} else {
-			console.log('j = ' + j);
-			// console.log('kanji: ' + kanjikana.charAt(i));
+	// First match
+	var parts = text.match(re);
 
-			// Kanji found, find next kana
-			for (var i2 = i + 1; !isKana(kanjikana.charAt(i2)) && i2 < kanjikana.length; i2++) {}
-			// Find matching kana
-			for (var j2 = j + 1; kana.charAt(j2) != kanjikana.charAt(i2) && j2 < kana.length; j2++) {}
+	while (parts && parts[1] && parts[2]) {
 
-			var furiKanji = kanjikana.slice(i, i2);
-			var furiKana = kana.slice(j, j2);
-			furi += '{{{furi(' + furiKanji + ',' + furiKana + '}}}';
+		var kanjikana = parts[1];
+		var kana = parts[2];
 
-			// Minus 1 to compensate the increment at end of for loop
-			i = i2 - 1;
-			j = j2 + 1;
+		// i = kanjikana pointer
+		// j = kana pointer
+		var j = 0;
+		for (var i = 0; i < kanjikana.length; i++) {
+			if (isKana(kanjikana.charAt(i))) {
+				// Kana found
+				furi += kanjikana.charAt(i);
+			} else {
+				// Kanji found, find next kana
+				for (var i2 = i + 1; !isKana(kanjikana.charAt(i2)) && i2 < kanjikana.length; i2++) {}
+				// Find matching kana
+				for (var j2 = j + 1; kana.charAt(j2) != kanjikana.charAt(i2) && j2 < kana.length; j2++) {}
+
+				var furiKanji = kanjikana.slice(i, i2);
+				var furiKana = kana.slice(j, j2);
+				furi += '{{{furi(' + furiKanji + ',' + furiKana + ')}}}';
+
+				// Minus 1 to compensate the increment at end of for loop
+				i = i2 - 1;
+				j = j2 + 1;
+			}
 		}
+
+		// Remove first matched part from string and rematch
+		text = text.substring(parts[0].length);
+		parts = text.match(re);
 	}
 
 	return furi;
