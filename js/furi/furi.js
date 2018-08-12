@@ -10,6 +10,11 @@ function convertToFuri(text) {
 	// Input pattern is "kanjikana(kana)"
 	var re = /([^()]*)\(([^()]*)\)/i;
 
+	// Replace parentheses
+	text = text.replace('（', '(');
+	text = text.replace('）', ')');
+	text = text.replace('）', ')');
+
 	// First match
 	var parts = text.match(re);
 
@@ -45,6 +50,9 @@ function convertToFuri(text) {
 		text = text.substring(parts[0].length);
 		parts = text.match(re);
 	}
+
+	// Append whatever remains
+	furi += text;
 
 	return furi;
 }
