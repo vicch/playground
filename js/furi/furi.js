@@ -11,9 +11,8 @@ function convertToFuri(text) {
 	var re = /([^()]*)\(([^()]*)\)/i;
 
 	// Replace parentheses
-	text = text.replace('（', '(');
-	text = text.replace('）', ')');
-	text = text.replace('）', ')');
+	text = text.replace(/（/g, '(');
+	text = text.replace(/）/g, ')');
 
 	// First match
 	var parts = text.match(re);
