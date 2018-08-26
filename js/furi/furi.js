@@ -17,31 +17,37 @@ function convertToFuri(text) {
 	// First match
 	var parts = text.match(re);
 
-	while (parts && parts[1] && parts[2]) {
+	while (parts && parts[1]) {
 
 		var kanjikana = parts[1];
 		var kana = parts[2];
 
-		// i = kanjikana pointer
-		// j = kana pointer
-		var j = 0;
-		for (var i = 0; i < kanjikana.length; i++) {
-			if (isKana(kanjikana.charAt(i))) {
-				// Kana found
-				furi += kanjikana.charAt(i);
-			} else {
-				// Kanji found, find next kana
-				for (var i2 = i + 1; !isKana(kanjikana.charAt(i2)) && i2 < kanjikana.length; i2++) {}
-				// Find matching kana
-				for (var j2 = j + 1; kana.charAt(j2) != kanjikana.charAt(i2) && j2 < kana.length; j2++) {}
+		if (kana == '') {
+			// Kana is empty, don't convert these kanjis, append directly
+			furi += kanjikana;
 
-				var furiKanji = kanjikana.slice(i, i2);
-				var furiKana = kana.slice(j, j2);
-				furi += '{{{furi(' + furiKanji + ',' + furiKana + ')}}}';
+		} else {
+			var i = 0; // Kanjikana pointer
+			var j = 0; // Kana pointer
 
-				// Minus 1 to compensate the increment at end of for loop
-				i = i2 - 1;
-				j = j2 + 1;
+			for (; i < kanjikana.length; i++) {
+				if (isKana(kanjikana.charAt(i))) {
+					// Kana found, append directly
+					furi += kanjikana.charAt(i);
+				} else {
+					// Kanji found, find next kana
+					for (var i2 = i + 1; !isKana(kanjikana.charAt(i2)) && i2 < kanjikana.length; i2++) {}
+					// Find matching kana
+					for (var j2 = j + 1; kana.charAt(j2) != kanjikana.charAt(i2) && j2 < kana.length; j2++) {}
+
+					var furiKanji = kanjikana.slice(i, i2);
+					var furiKana = kana.slice(j, j2);
+					furi += '{{{furi(' + furiKanji + ',' + furiKana + ')}}}';
+
+					// Minus 1 to compensate the increment at end of for loop
+					i = i2 - 1;
+					j = j2 + 1;
+				}
 			}
 		}
 
@@ -62,8 +68,17 @@ var kana = [
 	'そ', 'ぞ', 'た', 'だ', 'ち', 'ぢ', 'っ', 'つ', 'づ', 'て', 'で', 'と', 'ど', 'な',
 	'に', 'ぬ', 'ね', 'の', 'は', 'ば', 'ぱ', 'ひ', 'び', 'ぴ', 'ふ', 'ぶ', 'ぷ', 'へ',
 	'べ', 'ぺ', 'ほ', 'ぼ', 'ぽ', 'ま', 'み', 'む', 'め', 'も', 'ゃ', 'や', 'ゅ', 'ゆ',
-	'ょ', 'よ', 'ら', 'り', 'る', 'れ', 'ろ', 'ゎ', 'わ', 'ゐ', 'ゑ', 'を', 'ん', 'ゔ'
+	'ょ', 'よ', 'ら', 'り', 'る', 'れ', 'ろ', 'ゎ', 'わ', 'ゐ', 'ゑ', 'を', 'ん', 'ゔ',
+	'ァ', 'ア', 'ィ', 'イ', 'ゥ', 'ウ', 'ェ', 'エ', 'ォ', 'オ', 'ヵ', 'カ', 'ガ', 'キ', 'ギ',
+	'ク', 'グ', 'ヶ', 'ケ', 'ゲ', 'コ', 'ゴ', 'サ', 'ザ', 'シ', 'ジ', 'ス', 'ズ', 'セ', 'ゼ',
+	'ソ', 'ゾ', 'タ', 'ダ', 'チ', 'ヂ', 'ッ', 'ツ', 'ヅ', 'テ', 'デ', 'ト', 'ド', 'ナ', 'ニ',
+	'ヌ', 'ネ', 'ノ', 'ハ', 'バ', 'パ', 'ヒ', 'ビ', 'ピ', 'フ', 'ブ', 'プ', 'ヘ', 'ベ', 'ペ',
+	'ホ', 'ボ', 'ポ', 'マ', 'ミ', 'ム', 'メ', 'モ', 'ャ', 'ヤ', 'ュ', 'ユ', 'ョ', 'ヨ', 'ラ',
+	'リ', 'ル', 'レ', 'ロ', 'ヮ', 'ワ', 'ヷ', 'ヴ', 'ヰ', 'ヸ', 'ヱ', 'ヹ', 'ヲ', 'ヺ', 'ン',
+	// Ignore punctuations like kana
+	'、', '。',
 ];
+
 function isKana(char) {
 	return kana.indexOf(char) != -1;
 }
