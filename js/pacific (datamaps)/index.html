@@ -1,0 +1,50 @@
+<script src="js/jquery.min-1.9.1.js"></script>
+<script src="js/d3.min-3.5.17.js"></script>
+<script src="js/topojson.min-1.6.20.js"></script>
+<script src="js/datamaps.world.hires.min-0.5.0.js"></script>
+<div id="container" style="position: relative; width: 100%; height: 100%;"></div>
+<script>
+    // Original scale, width and height of the world map by default
+    var oriScale = 150;
+    var oriWidth = 940;
+    var oriHeight = 620;
+
+    var canvasWidth = $("#container").width();
+    var canvasHeight = $("#container").height();
+
+    // Enlarge map to the extent when width and height don't exceed the canvas
+    var scaleMultiplier = Math.min(canvasWidth / oriWidth, canvasHeight / oriHeight);
+
+    var map = new Datamap({
+        element: document.getElementById('container'),
+        setProjection: function (element) {
+            var projection = d3.geo.mercator()
+                // .clipExtent([0, 0], [180, 90])
+                // .center([120, 35]) // [east_latitude, north_longitude]
+                .scale(oriScale * scaleMultiplier)
+                .translate([canvasWidth / 2, canvasHeight / 2 + 180])
+                ;
+            var path = d3.geo.path().projection(projection);
+            return { path: path, projection: projection };
+        },
+        fills: {
+            defaultFill: 'rgba(100,100,100,0.9)'
+        },
+        geographyConfig: {
+            highlightOnHover: false,
+            popupOnHover: false
+        },
+    });
+
+    var sunks = [];
+
+    map.bubbles(sunks, {
+        popupTemplate: function (geo, data) {
+            return ['<div class="hoverinfo">' +  data.name,
+            '<br/>Payload: ' +  data.yield + ' kilotons',
+            '<br/>Country: ' +  data.country + '',
+            '<br/>Date: ' +  data.date + '',
+            '</div>'].join('');
+        }
+    })
+</script>
