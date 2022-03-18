@@ -13,7 +13,7 @@ HEADERS = ['id', 'series', 'title', 'author', 'genre1', 'genre2', 'genre3', 'rat
 def scan_range(from_id, to_id):
 	file_name = '%s-%s.csv' % (from_id, to_id)
 	for book_id in range(from_id, to_id + 1):
-		with open(file_name, 'w', newline='') as file:
+		with open(file_name, 'a', newline='') as file:
 			writer = csv.DictWriter(file, fieldnames=HEADERS, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
 			writer.writerow(scan_book(book_id))
 
