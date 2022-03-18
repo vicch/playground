@@ -12,18 +12,16 @@ HEADERS = ['id', 'series', 'title', 'author', 'genre1', 'genre2', 'genre3', 'rat
 
 def scan_range(from_id, to_id):
 	file_name = '%s-%s.csv' % (from_id, to_id)
-	with open(file_name, 'w', newline='') as file:
-		writer = csv.DictWriter(file, fieldnames=HEADERS, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
-		writer.writeheader()
-
-		for book_id in range(from_id, to_id + 1):
+	for book_id in range(from_id, to_id + 1):
+		with open(file_name, 'w', newline='') as file:
+			writer = csv.DictWriter(file, fieldnames=HEADERS, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
 			writer.writerow(scan_book(book_id))
 
 def scan_book(book_id):
 	book = None
 	while (book is None):
 		book = scan(book_id)
-		time.sleep(5)
+		time.sleep(30)
 	return book
 
 def scan(book_id):
