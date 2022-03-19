@@ -1,14 +1,17 @@
 # This script scans and exports book data on Goodreads by book IDs range.
 
 import sys
+import re
 import time
 import csv
-import traceback
+
+# import traceback
 import requests
 from bs4 import BeautifulSoup
 
 BASE_URL = 'https://www.goodreads.com/book/show/'
-HEADERS = ['id', 'series', 'title', 'author', 'genre1', 'genre2', 'genre3', 'rating', 'count', 'date']
+HEADERS = ['id', 'series', 'title', 'author', 'publish', 'genre1', 'genre2', 'genre3', 'rating', 'count', 'date']
+PUBLISH_PATTERN = re.compile('\(first published')
 
 def scan_range(from_id, to_id):
 	file_name = '%s-%s.csv' % (from_id, to_id)
@@ -39,6 +42,7 @@ def scan(book_id):
 		book['series'] = get_series(soup)
 		book['title'] = soup.find(id='bookTitle').contents[0].strip()
 		book['author'] = soup.find('a', class_='authorName').find('span').contents[0].strip().replace('  ', ' ')
+		book['publish'] = get_publish(soup)
 
 		genres = soup.find_all('a', class_='bookPageGenreLink')
 		book['genre1'] = genres[0].contents[0] if (len(genres) > 0) else ''
@@ -72,9 +76,16 @@ def get_series(soup):
 	if elem is None:
 		return ''
 
-	series = elem.contents[0]
-	# Series name format: (<series> #<seq>), return only <series>
-	return series.split('(')[1].split(')')[0].split('#')[0].strip()
+	# Series info format: (<name> #<seq>), return <name>
+	return elem.contents[0].split('(')[1].split(')')[0].split('#')[0].strip()
+
+def get_publish(soup):
+	elem = soup.find(text=PUBLISH_PATTERN)
+	if elem is None:
+		return ''
+	
+	# First publish info format: (first published <month> <day> <year>), return <year>
+	return elem.split(')')[0].split(' ')[-1]
 
 if __name__ == '__main__':
 	from_id = int(sys.argv[1])
