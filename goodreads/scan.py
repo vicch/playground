@@ -21,7 +21,7 @@ def scan_book(book_id):
 	book = None
 	while (book is None):
 		book = scan(book_id)
-		time.sleep(30)
+		time.sleep(25)
 	return book
 
 def scan(book_id):
