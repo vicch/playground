@@ -10,7 +10,7 @@ import requests
 from bs4 import BeautifulSoup
 
 BASE_URL = 'https://www.goodreads.com/book/show/'
-HEADERS = ['id', 'series', 'title', 'author', 'publish', 'genre1', 'genre2', 'genre3', 'rating', 'count', 'date']
+HEADERS = ['id', 'series', 'title', 'author', 'year', 'genre1', 'genre2', 'genre3', 'rating', 'count', 'date']
 PUBLISH_PATTERN = re.compile('\(first published')
 
 def scan_range(from_id, to_id):
@@ -42,7 +42,7 @@ def scan(book_id):
 		book['series'] = get_series(soup)
 		book['title'] = soup.find(id='bookTitle').contents[0].strip()
 		book['author'] = soup.find('a', class_='authorName').find('span').contents[0].strip().replace('  ', ' ')
-		book['publish'] = get_publish(soup)
+		book['year'] = get_year(soup)
 
 		genres = soup.find_all('a', class_='bookPageGenreLink')
 		book['genre1'] = genres[0].contents[0] if (len(genres) > 0) else ''
@@ -79,12 +79,12 @@ def get_series(soup):
 	# Series info format: (<name> #<seq>), return <name>
 	return elem.contents[0].split('(')[1].split(')')[0].split('#')[0].strip()
 
-def get_publish(soup):
+def get_year(soup):
 	elem = soup.find(text=PUBLISH_PATTERN)
 	if elem is None:
 		return ''
 	
-	# First publish info format: (first published <month> <day> <year>), return <year>
+	# Year info format: (first published <month> <day> <year>), return <year>
 	return elem.split(')')[0].split(' ')[-1]
 
 if __name__ == '__main__':
