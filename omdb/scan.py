@@ -32,6 +32,9 @@ def scan(movie_id):
 		movie['date'] = time.strftime('%Y/%m/%d')
 
 		data = get_data(movie_id)
+		if data['Response'] == 'False':
+			return movie
+
 		movie['type'] = data['Type'].capitalize()
 		movie['title'] = data['Title']
 		movie['year'] = data['Year']
