@@ -6,7 +6,7 @@ import csv
 import requests
 
 BASE_URL = 'https://www.omdbapi.com/?apiKey=e1ce9b62&i='
-HEADERS = ['link', 'id', 'type', 'title', 'year', 'country', 'genre', 'director', 'rating', 'count', 'date']
+HEADERS = ['link', 'id', 'title', 'year', 'type', 'genre', 'country', 'director', 'rating', 'count', 'date']
 
 def scan_range(from_id, to_id):
 	file_name = '%s-%s.csv' % (from_id, to_id)
@@ -32,7 +32,7 @@ def scan(movie_id):
 		movie['date'] = time.strftime('%Y/%m/%d')
 
 		data = get_data(movie_id)
-		movie['type'] = data['Type']
+		movie['type'] = data['Type'].capitalize()
 		movie['title'] = data['Title']
 		movie['year'] = data['Year']
 		movie['country'] = data['Country']
