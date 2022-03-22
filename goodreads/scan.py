@@ -10,7 +10,7 @@ import requests
 from bs4 import BeautifulSoup
 
 BASE_URL = 'https://www.goodreads.com/book/show/'
-HEADERS = ['id', 'series', 'title', 'author', 'year', 'genre1', 'genre2', 'genre3', 'rating', 'count', 'date']
+HEADERS = ['link', 'id', 'series', 'title', 'author', 'year', 'genre1', 'genre2', 'genre3', 'rating', 'count', 'date']
 PUBLISH_PATTERN = re.compile('\(first published')
 
 def scan_range(from_id, to_id):
