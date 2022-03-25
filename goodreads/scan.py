@@ -14,7 +14,7 @@ HEADERS = ['link', 'id', 'series', 'title', 'author', 'year', 'genre1', 'genre2'
 PUBLISH_PATTERN = re.compile('\(first published')
 
 def scan_range(from_id, to_id):
-	file_name = '%s-%s.csv' % (from_id, to_id)
+	file_name = 'goodreads-%s-%s.csv' % (from_id, to_id)
 	for book_id in range(from_id, to_id + 1):
 		with open(file_name, 'a', newline='') as file:
 			writer = csv.DictWriter(file, fieldnames=HEADERS, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)

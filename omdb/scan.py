@@ -11,7 +11,7 @@ API_KEYS = ['e1ce9b62', '447083ab']
 HEADERS = ['link', 'id', 'title', 'year', 'type', 'genre', 'country', 'director', 'rating', 'count', 'date']
 
 def scan_range(from_id, to_id):
-	file_name = '%s-%s.csv' % (from_id, to_id)
+	file_name = 'omdb-%s-%s.csv' % (from_id, to_id)
 	for movie_id in range(from_id, to_id + 1):
 		with open(file_name, 'a', newline='') as file:
 			writer = csv.DictWriter(file, fieldnames=HEADERS, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
