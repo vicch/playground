@@ -5,7 +5,7 @@ import re
 import time
 import csv
 
-# import traceback
+import traceback
 import requests
 from bs4 import BeautifulSoup
 
@@ -55,8 +55,8 @@ def scan(book_id):
 		return book
 
 	except Exception as e:
-		# print(traceback.format_exc())
-		print(e)
+		print(traceback.format_exc())
+		# print(e)
 		return None
 
 def get_soup(book_id):
