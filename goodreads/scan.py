@@ -41,7 +41,7 @@ def scan(book_id):
 
 		book['series'] = get_series(soup)
 		book['title'] = soup.find(id='bookTitle').contents[0].strip()
-		book['author'] = soup.find('a', class_='authorName').find('span').contents[0].strip().replace('  ', ' ')
+		book['author'] = get_author(soup)
 		book['year'] = get_year(soup)
 
 		genres = soup.find_all('a', class_='bookPageGenreLink')
@@ -71,6 +71,13 @@ def is_404(soup):
 	# If there is a button going back to homepage, it's a 404 page
 	return soup.find(text='Back to the Goodreads homepage') is not None
 
+def get_author(soup):
+	elem = soup.find('a', class_='authorName')
+	if elem is None:
+		return ''
+
+	return elem.find('span').contents[0].strip().replace('  ', ' ')
+
 def get_series(soup):
 	elem = soup.find(id='bookSeries').find('a')
 	if elem is None:
@@ -83,7 +90,7 @@ def get_year(soup):
 	elem = soup.find(text=PUBLISH_PATTERN)
 	if elem is None:
 		return ''
-	
+
 	# Year info format: (first published <month> <day> <year>), return <year>
 	return elem.split(')')[0].split(' ')[-1]
 
