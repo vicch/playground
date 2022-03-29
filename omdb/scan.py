@@ -6,7 +6,7 @@ import csv
 import requests
 
 URL = 'https://www.omdbapi.com/?apiKey=%s&i=%s'
-API_KEYS = ['e1ce9b62', '447083ab']
+API_KEYS = ['e1ce9b62']
 
 HEADERS = ['link', 'id', 'title', 'year', 'type', 'genre', 'country', 'director', 'rating', 'count', 'date']
 
