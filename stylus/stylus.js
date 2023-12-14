@@ -80,11 +80,11 @@ body, body *, div, div *, section, section *,
 p, a, span, textarea, font,
 li, tr, td, dt, dd,
 input, label, select, button {
-    font-family: MyFont, !important;
+    font-family: MyFont !important;
 }
 
 h1, h2, h3, h4, h5, b, em, strong {
-    font-family: MyFontHead, !important;
+    font-family: MyFontHead !important;
 }
 
 code, code *, .code,
