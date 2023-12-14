@@ -135,6 +135,24 @@ textarea.react-blob-print-hide {
 }
   `;
 }
+if ((location.hostname === "github.com" || location.hostname.endsWith(".github.com"))) {
+  css += `
+paper-item,
+tp-yt-paper-item,
+yt-formatted-string.ytd-menu-service-item-renderer,
+ytd-rich-grid-media[mini-mode] #video-title.ytd-rich-grid-media,
+.title.ytd-guide-entry-renderer,
+.message.ytd-notification-renderer,
+#video-title.ytd-rich-grid-media,
+#content-text.ytd-comment-renderer {
+    font-family: MyFont !important;
+}
+
+ytd-thumbnail[size=large] a.ytd-thumbnail, ytd-thumbnail[size=large]:before {
+    border-radius: 0;
+}
+  `;
+}
 if (typeof GM_addStyle !== "undefined") {
   GM_addStyle(css);
 } else {
