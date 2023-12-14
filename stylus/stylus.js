@@ -91,7 +91,7 @@ code, code *, .code,
 pre, pre *,
 div.ace_editor, div.ace_editor *,
 .syntaxhighlighter code {
-	font-family: MyFontSrc !important;
+    font-family: MyFontSrc !important;
     font-variant-ligatures: none;
 }
 
@@ -135,7 +135,7 @@ textarea.react-blob-print-hide {
 }
   `;
 }
-if ((location.hostname === "github.com" || location.hostname.endsWith(".github.com"))) {
+if ((location.hostname === "youtube.com" || location.hostname.endsWith(".youtube.com"))) {
   css += `
 paper-item,
 tp-yt-paper-item,
@@ -150,6 +150,18 @@ ytd-rich-grid-media[mini-mode] #video-title.ytd-rich-grid-media,
 
 ytd-thumbnail[size=large] a.ytd-thumbnail, ytd-thumbnail[size=large]:before {
     border-radius: 0;
+}
+  `;
+}
+if ((location.hostname === "wanikani.com" || location.hostname.endsWith(".wanikani.com"))) {
+  css += `
+.vocabulary, [lang=\"ja\"] {
+    font-family: MyFont !important;
+}
+
+#lesson #supplement-info #prev-btn,
+#lesson #supplement-info #next-btn {
+    font-family: FontAwesome !important;
 }
   `;
 }
