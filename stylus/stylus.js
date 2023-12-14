@@ -76,18 +76,15 @@
     src: local("Osaka");
 }
 
-body, body p,
-div, div p,
-section, section p, textarea,
-span, font, p, a,
+body, body *, div, div *, section, section *,
+p, a, span, textarea, font,
 li, tr, td, dt, dd,
 input, label, select, button {
-    font-family: MyFont, "Material Icons Extended" !important;
+    font-family: MyFont, !important;
 }
 
-h1, h2, h3, h4, h5,
-b, em, strong {
-    font-family: MyFontHead, "Material Icons Extended" !important;
+h1, h2, h3, h4, h5, b, em, strong {
+    font-family: MyFontHead, !important;
 }
 
 code, code *, .code,
@@ -97,10 +94,6 @@ div.ace_editor, div.ace_editor *,
 	font-family: MyFontSrc !important;
     font-variant-ligatures: none;
 }
-
-/* *:before, *:after {
-   font-family: MyFont, "Font Awesome 5 Pro", "Font Awesome 5 Brands";
-}*/
 
 .material-icons {
     font-family: "Material Icons" !important;
@@ -116,6 +109,30 @@ ruby > rt {
   `;
 if ((location.hostname === "github.com" || location.hostname.endsWith(".github.com"))) {
   css += `
+.markdown-body {
+    font-family: MyFont !important;
+}
+
+.blob-code-inner,
+.blob-code-inner span,
+.text-mono {
+    font-family: MyFontSrc !important;
+    font-size: 1em !important;
+}
+
+span[data-code-text]::before {
+    font-family: MyFontSrc !important;
+}
+
+textarea.react-blob-print-hide {
+    font-family: MyFontSrc !important;
+    line-height: 20.67px !important;
+}
+
+.markdown-body code,
+.markdown-body tt {
+    border-radius: 3px;
+}
   `;
 }
 if (typeof GM_addStyle !== "undefined") {
