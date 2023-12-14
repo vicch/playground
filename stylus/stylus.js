@@ -165,10 +165,9 @@ if ((location.hostname === "wanikani.com" || location.hostname.endsWith(".wanika
 }
 
 .fa-classic, .fa-light, .fa-regular, .fa-solid, .fa-thin, .fal, .far, .fas, .fat {
-	font-family: "Font Awesome 6 Pro" !important;
+    font-family: "Font Awesome 6 Pro" !important;
 }
   `;
-}
 }
 if (typeof GM_addStyle !== "undefined") {
   GM_addStyle(css);
