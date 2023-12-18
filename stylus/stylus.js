@@ -175,6 +175,10 @@ span.material-icons-extended {
 .google-symbols {
     font-family: "Google Symbols" !important;
 }
+
+.google-material-icons {
+    font-family: "Google Material Icons" !important;
+}
   `;
 }
 if ((location.hostname === "wanikani.com" || location.hostname.endsWith(".wanikani.com"))) {
