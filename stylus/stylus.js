@@ -153,6 +153,30 @@ ytd-thumbnail[size=large] a.ytd-thumbnail, ytd-thumbnail[size=large]:before {
 }
   `;
 }
+if ((location.hostname === "google.com" || location.hostname.endsWith(".google.com"))) {
+  css += `
+.g, .std {
+    font-family: MyFont !important;
+}
+
+.ha > .hP {
+    font-family: MyFontHead !important;
+}
+
+div.view-lines div.view-line span {
+    font-family: MyFontSrc !important;
+}
+
+.material-icons-extended,
+span.material-icons-extended {
+    font-family: "Material Icons Extended" !important;
+}
+
+.google-symbols {
+    font-family: "Google Symbols" !important;
+}
+  `;
+}
 if ((location.hostname === "wanikani.com" || location.hostname.endsWith(".wanikani.com"))) {
   css += `
 .vocabulary, [lang=\"ja\"] {
