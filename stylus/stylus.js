@@ -197,6 +197,25 @@ if ((location.hostname === "wanikani.com" || location.hostname.endsWith(".wanika
 }
   `;
 }
+if ((location.hostname === "weread.qq.com" || location.hostname.endsWith(".weread.qq.com"))) {
+css += `
+@font-face {
+    font-family: "MyFont";
+    unicode-range: U+4E00-9FFF;
+    src: local("FZSong III-Z05");
+}
+@font-face {
+    font-family: "MyFontBold";
+    unicode-range: U+4E00-9FFF;
+    src: local("FZSong III-Z05");
+}
+@font-face {
+    font-family: "MyFontHead";
+    unicode-range: U+4E00-9FFF;
+    src: local("FZSong III-Z05");
+}
+  `;
+}
 if (typeof GM_addStyle !== "undefined") {
   GM_addStyle(css);
 } else {
