@@ -7,6 +7,7 @@
     src: local("FFGoodProNarr-News");
     src: local("AvenirNextCondensed-Medium");
     src: local("RobotoCondensed-Regular");
+    src: local("Barlow Condensed Regular");
 }
 @font-face {
     font-family: "MyFont";
@@ -30,6 +31,7 @@
     src: local("FFGoodProNarr-Bold");
     src: local("AvenirNextCondensed-Bold");
     src: local("RobotoCondensed-Bold");
+    src: local("Barlow Condensed SemiBold");
 }
 @font-face {
     font-family: "MyFontBold";
@@ -48,6 +50,7 @@
     src: local("FFGoodProNarr-Bold");
     src: local("AvenirNextCondensed-Bold");
     src: local("RobotoCondensed-Bold");
+    src: local("Barlow Condensed SemiBold");
 }
 @font-face {
     font-family: "MyFontHead";
