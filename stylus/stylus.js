@@ -6,8 +6,8 @@
     unicode-range: U+00-024F;
     src: local("FFGoodProNarr-News");
     src: local("AvenirNextCondensed-Medium");
+    src: local("BarlowCondensed-Regular");
     src: local("RobotoCondensed-Regular");
-    src: local("Barlow Condensed Regular");
 }
 @font-face {
     font-family: "MyFont";
@@ -30,8 +30,8 @@
     unicode-range: U+00-024F;
     src: local("FFGoodProNarr-Bold");
     src: local("AvenirNextCondensed-Bold");
+    src: local("BarlowCondensed-Bold");
     src: local("RobotoCondensed-Bold");
-    src: local("Barlow Condensed SemiBold");
 }
 @font-face {
     font-family: "MyFontBold";
@@ -49,8 +49,8 @@
     unicode-range: U+00-024F;
     src: local("FFGoodProNarr-Bold");
     src: local("AvenirNextCondensed-Bold");
+    src: local("BarlowCondensed-Bold");
     src: local("RobotoCondensed-Bold");
-    src: local("Barlow Condensed SemiBold");
 }
 @font-face {
     font-family: "MyFontHead";
