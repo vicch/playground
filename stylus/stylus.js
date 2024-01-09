@@ -66,7 +66,7 @@
 @font-face {
     font-family: "MyFontSrc";
     unicode-range: U+00-024F;
-    src: local("Iosevka 2024 Book Condensed");
+    src: local("Iosevka 2024 Condensed");
 }
 @font-face {
     font-family: "MyFontSrc";
