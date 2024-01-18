@@ -118,6 +118,7 @@ if ((location.hostname === "github.com" || location.hostname.endsWith(".github.c
 
 .blob-code-inner,
 .blob-code-inner span,
+.blob-code-inner mark,
 .text-mono {
     font-family: MyFontSrc !important;
     font-size: 1em !important;
