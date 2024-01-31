@@ -220,6 +220,13 @@ css += `
 }
   `;
 }
+if ((location.hostname === "flickr.com" || location.hostname.endsWith(".flickr.com"))) {
+css += `
+.showcase {
+    display: none;
+}
+  `;
+}
 if (typeof GM_addStyle !== "undefined") {
   GM_addStyle(css);
 } else {
