@@ -234,7 +234,6 @@ css += `
 }
   `;
 }
-}
 if (typeof GM_addStyle !== "undefined") {
   GM_addStyle(css);
 } else {
