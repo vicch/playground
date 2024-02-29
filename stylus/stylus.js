@@ -227,6 +227,14 @@ css += `
 }
   `;
 }
+if ((location.hostname === "movielens.org" || location.hostname.endsWith(".movielens.org"))) {
+css += `
+.fa {
+    font-family: FontAwesome !important;
+}
+  `;
+}
+}
 if (typeof GM_addStyle !== "undefined") {
   GM_addStyle(css);
 } else {
