@@ -130,7 +130,7 @@ span[data-code-text]::before {
 
 textarea.react-blob-print-hide {
     font-family: MyFontSrc !important;
-    line-height: 20.67px !important;
+    line-height: 20px !important;
 }
 
 .markdown-body code,
