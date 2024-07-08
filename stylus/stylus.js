@@ -227,6 +227,13 @@ css += `
 }
   `;
 }
+if ((location.hostname === "notion.so" || location.hostname.endsWith(".notion.so"))) {
+css += `
+.notion-code-block * {
+    font-family: MyFontSrc !important;
+}
+  `;
+}
 if ((location.hostname === "movielens.org" || location.hostname.endsWith(".movielens.org"))) {
 css += `
 .fa {
