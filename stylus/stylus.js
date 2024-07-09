@@ -124,6 +124,7 @@ if ((location.hostname === "github.com" || location.hostname.endsWith(".github.c
     font-size: 1em !important;
 }
 
+div.react-code-text *,
 span[data-code-text]::before {
     font-family: MyFontSrc !important;
 }
