@@ -8,6 +8,7 @@
     src: local("AvenirNextCondensed-Medium");
     src: local("BarlowCondensed-Regular");
     src: local("RobotoCondensed-Regular");
+    src: local("Helvetica Condensed");
 }
 @font-face {
     font-family: "MyFont";
@@ -32,6 +33,7 @@
     src: local("AvenirNextCondensed-Bold");
     src: local("BarlowCondensed-Bold");
     src: local("RobotoCondensed-Bold");
+    src: local("Helvetica Condensed Bold");
 }
 @font-face {
     font-family: "MyFontBold";
@@ -51,6 +53,7 @@
     src: local("AvenirNextCondensed-Bold");
     src: local("BarlowCondensed-Bold");
     src: local("RobotoCondensed-Bold");
+    src: local("Helvetica Condensed Bold");
 }
 @font-face {
     font-family: "MyFontHead";
