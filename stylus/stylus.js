@@ -222,6 +222,9 @@ css += `
     unicode-range: U+4E00-9FFF;
     src: local("FZSong III-Z05");
 }
+[data-wr-role="text"] {
+    font-family: MyFont !important;
+}
   `;
 }
 if ((location.hostname === "flickr.com" || location.hostname.endsWith(".flickr.com"))) {
