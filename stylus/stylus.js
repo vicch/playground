@@ -222,7 +222,7 @@ css += `
     unicode-range: U+4E00-9FFF;
     src: local("FZSong III-Z05");
 }
-[data-wr-role="text"] {
+span[data-wr-role="text"] {
     font-family: MyFont !important;
 }
   `;
