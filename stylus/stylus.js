@@ -258,6 +258,13 @@ css += `
 }
   `;
 }
+if ((location.hostname === "leetcode.com" || location.hostname.endsWith(".leetcode.com"))) {
+css += `
+.monaco-editor .view-lines * {
+    font-family: MyFontSrc !important;
+}
+  `;
+}
 if (typeof GM_addStyle !== "undefined") {
   GM_addStyle(css);
 } else {
