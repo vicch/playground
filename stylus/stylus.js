@@ -250,7 +250,7 @@ css += `
 }
 if ((location.hostname === "github.dev" || location.hostname.endsWith(".github.dev"))) {
 css += `
-.editor-container * {
+.monaco-editor .view-lines * {
     font-family: MyFontSrc !important;
 }
 .codicon[class*=codicon-] {
