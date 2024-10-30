@@ -248,6 +248,13 @@ css += `
 }
   `;
 }
+if ((location.hostname === "github.dev" || location.hostname.endsWith(".github.dev"))) {
+css += `
+.codicon[class*=codicon-] {
+    font-family: codicon !important;
+}
+  `;
+}
 if (typeof GM_addStyle !== "undefined") {
   GM_addStyle(css);
 } else {
