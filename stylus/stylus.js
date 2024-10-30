@@ -250,6 +250,9 @@ css += `
 }
 if ((location.hostname === "github.dev" || location.hostname.endsWith(".github.dev"))) {
 css += `
+.editor-container * {
+    font-family: MyFontSrc !important;
+}
 .codicon[class*=codicon-] {
     font-family: codicon !important;
 }
