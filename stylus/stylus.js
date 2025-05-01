@@ -265,6 +265,13 @@ css += `
 }
   `;
 }
+if ((location.hostname === "everyonepiano.cn" || location.hostname.endsWith(".everyonepiano.cn"))) {
+css += `
+#musicTitle {
+    display: none !important;
+}
+  `;
+}
 if (typeof GM_addStyle !== "undefined") {
   GM_addStyle(css);
 } else {
