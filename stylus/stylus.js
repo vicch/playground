@@ -14,6 +14,7 @@
     font-family: "MyFont";
     unicode-range: U+4E00-9FFF;
     src: local("STHeiti-SC-Bold");
+    src: local("Heiti SC Bold");
 }
 @font-face {
     font-family: "MyFont";
@@ -39,6 +40,7 @@
     font-family: "MyFontBold";
     unicode-range: U+4E00-9FFF;
     src: local("STHeiti-SC-Bold");
+    src: local("Heiti SC Bold");
 }
 @font-face {
     font-family: "MyFontBold";
@@ -59,6 +61,7 @@
     font-family: "MyFontHead";
     unicode-range: U+4E00-9FFF;
     src: local("STHeiti-SC-Bold");
+    src: local("Heiti SC Bold");
 }
 @font-face {
     font-family: "MyFontHead";
@@ -75,6 +78,7 @@
     font-family: "MyFontSrc";
     unicode-range: U+4E00-9FFF;
     src: local("STHeiti-SC-Bold");
+    src: local("Heiti SC Bold");
 }
 @font-face {
     font-family: "MyFontSrc";
