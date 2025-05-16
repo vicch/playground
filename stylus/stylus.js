@@ -13,7 +13,7 @@
 @font-face {
     font-family: "MyFont";
     unicode-range: U+4E00-9FFF;
-    src: local("STHeiti");
+    src: local("STHeiti-SC-Bold");
 }
 @font-face {
     font-family: "MyFont";
