@@ -3,6 +3,7 @@
   css += `
 @font-face {
     font-family: "MyFont";
+    font-weight: 400;
     unicode-range: U+00-024F;
     src: local("FFGoodProNarr-News");
     src: local("AvenirNextCondensed-Medium");
@@ -12,16 +13,19 @@
 }
 @font-face {
     font-family: "MyFont";
+    font-weight: 700;
     unicode-range: U+4E00-9FFF;
-    src: local("STHeiti-SC-Bold");
+    src: local("STHeiti");
 }
 @font-face {
     font-family: "MyFont";
+    font-weight: 400;
     unicode-range: U+3040-30FF;
     src: local("Osaka");
 }
 @font-face {
     font-family: "MyFont";
+    font-weight: 400;
     unicode-range: U+E000-F8FF;
     src: local("Font Awesome 5 Pro");
 }
