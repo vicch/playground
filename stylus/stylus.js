@@ -38,7 +38,7 @@
 @font-face {
     font-family: "MyFontBold";
     unicode-range: U+4E00-9FFF;
-    src: local("STHeiti-SC-Bold");
+    src: local("STHeiti-SC-Medium");
 }
 @font-face {
     font-family: "MyFontBold";
@@ -58,7 +58,7 @@
 @font-face {
     font-family: "MyFontHead";
     unicode-range: U+4E00-9FFF;
-    src: local("STHeiti-SC-Bold");
+    src: local("STHeiti-SC-Medium");
 }
 @font-face {
     font-family: "MyFontHead";
