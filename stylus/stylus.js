@@ -27,26 +27,6 @@
 }
 
 @font-face {
-    font-family: "MyFontBold";
-    unicode-range: U+00-024F;
-    src: local("FFGoodProNarr-Bold");
-    src: local("AvenirNextCondensed-Bold");
-    src: local("BarlowCondensed-Bold");
-    src: local("RobotoCondensed-Bold");
-    src: local("Helvetica Condensed Bold");
-}
-@font-face {
-    font-family: "MyFontBold";
-    unicode-range: U+4E00-9FFF;
-    src: local("STHeiti");
-}
-@font-face {
-    font-family: "MyFontBold";
-    unicode-range: U+3040-30FF;
-    src: local("Osaka");
-}
-
-@font-face {
     font-family: "MyFontHead";
     unicode-range: U+00-024F;
     src: local("FFGoodProNarr-Bold");
@@ -94,7 +74,7 @@ h1, h2, h3, h4, h5, b, em, strong {
 }
 
 code, code *, .code,
-pre, pre *,
+[style*="monospace"],
 div.ace_editor, div.ace_editor *,
 .syntaxhighlighter code {
     font-family: MyFontSrc !important;
@@ -209,11 +189,6 @@ if ((location.hostname === "weread.qq.com" || location.hostname.endsWith(".werea
 css += `
 @font-face {
     font-family: "MyFont";
-    unicode-range: U+4E00-9FFF;
-    src: local("FZSong III-Z05");
-}
-@font-face {
-    font-family: "MyFontBold";
     unicode-range: U+4E00-9FFF;
     src: local("FZSong III-Z05");
 }
