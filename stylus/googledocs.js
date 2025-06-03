@@ -81,7 +81,7 @@
   // Step 3: Apply override to all relevant canvases
   function applyFontOverride() {
     // Target all canvases under elements ending with grid-table-container
-    const canvases = document.querySelectorAll('[id$="grid-table-container"] canvas');
+    const canvases = document.querySelectorAll('[id$="grid-table-container"] canvas, canvas.kix-canvas-tile-content');
     canvases.forEach(canvas => {
       overrideCanvasFont(canvas);
     });
