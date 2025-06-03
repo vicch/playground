@@ -1,10 +1,10 @@
 // ==UserScript==
-// @name         Google Sheets
+// @name         Google Docs
 // @namespace    http://tampermonkey.net/
 // @version      2025-05-15
-// @description  Google Sheets canvas font
+// @description  Google Docs canvas font
 // @author       You
-// @match        https://docs.google.com/spreadsheets/*
+// @match        *://docs.google.com/*
 // ==/UserScript==
 
 (function() {
