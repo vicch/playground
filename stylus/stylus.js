@@ -214,6 +214,9 @@ css += `
 .notion-code-block * {
     font-family: MyFontSrc !important;
 }
+[style*="font-weight:600"] {
+    font-family: MyFontBold !important;
+}
   `;
 }
 if ((location.hostname === "movielens.org" || location.hostname.endsWith(".movielens.org"))) {
