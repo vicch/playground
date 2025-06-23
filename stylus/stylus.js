@@ -27,7 +27,7 @@
 }
 
 @font-face {
-    font-family: "MyFontHead";
+    font-family: "MyFontBold";
     unicode-range: U+00-024F;
     src: local("FFGoodProNarr-Bold");
     src: local("AvenirNextCondensed-Bold");
@@ -36,12 +36,12 @@
     src: local("Helvetica Condensed Bold");
 }
 @font-face {
-    font-family: "MyFontHead";
+    font-family: "MyFontBold";
     unicode-range: U+4E00-9FFF;
     src: local("STHeiti");
 }
 @font-face {
-    font-family: "MyFontHead";
+    font-family: "MyFontBold";
     unicode-range: U+3040-30FF;
     src: local("Osaka");
 }
@@ -70,7 +70,7 @@ input, label, select, button {
 }
 
 h1, h2, h3, h4, h5, b, em, strong {
-    font-family: MyFontHead !important;
+    font-family: MyFontBold !important;
 }
 
 code, code *, .code,
@@ -148,7 +148,7 @@ if ((location.hostname === "google.com" || location.hostname.endsWith(".google.c
 }
 
 .ha > .hP {
-    font-family: MyFontHead !important;
+    font-family: MyFontBold !important;
 }
 
 div.view-lines div.view-line span {
@@ -193,7 +193,7 @@ css += `
     src: local("FZSong III-Z05");
 }
 @font-face {
-    font-family: "MyFontHead";
+    font-family: "MyFontBold";
     unicode-range: U+4E00-9FFF;
     src: local("FZSong III-Z05");
 }
