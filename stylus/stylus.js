@@ -260,8 +260,8 @@ css += `
 if (typeof GM_addStyle !== "undefined") {
   GM_addStyle(css);
 } else {
-  let styleNode = document.createElement("style");
-  styleNode.appendChild(document.createTextNode(css));
-  (document.querySelector("head") || document.documentElement).appendChild(styleNode);
+  const s = document.createElement('style');
+  s.textContent = css;
+  document.documentElement.append(s);
 }
 })();
