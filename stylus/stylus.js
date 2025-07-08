@@ -250,6 +250,13 @@ css += `
 }
   `;
 }
+if ((location.hostname === "oreilly.com" || location.hostname.endsWith(".oreilly.com"))) {
+css += `
+#book-content #sbo-rt-content p, #book-content #sbo-rt-content .note p, #book-content #sbo-rt-content blockquote, #book-content #sbo-rt-content blockquote p, #book-content #sbo-rt-content .blockquote p {
+    font-family: MyFont !important;
+}
+  `;
+}
 if (typeof GM_addStyle !== "undefined") {
   GM_addStyle(css);
 } else {
