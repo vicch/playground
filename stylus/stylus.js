@@ -257,11 +257,11 @@ css += `
 }
   `;
 }
-if (typeof GM_addStyle !== "undefined") {
-  GM_addStyle(css);
-} else {
+// if (typeof GM_addStyle !== "undefined") {
+//   GM_addStyle(css);
+// } else {
   const s = document.createElement('style');
   s.textContent = css;
   document.documentElement.append(s);
-}
+// }
 })();
