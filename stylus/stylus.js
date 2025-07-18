@@ -257,7 +257,7 @@ css += `
 #book-content #sbo-rt-content a, #book-content #sbo-rt-content a:link, #book-content #sbo-rt-content a:visited,
 #book-content #sbo-rt-content ul li, #book-content #sbo-rt-content ol li, #book-content #sbo-rt-content ul li p, #book-content #sbo-rt-content ol li p,
 #book-content #sbo-rt-content table p, #book-content #sbo-rt-content table tr td {
-    font-family: MyFont !important;
+    font-family: C059 !important;
 }
   `;
 }
