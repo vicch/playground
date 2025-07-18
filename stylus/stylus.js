@@ -260,7 +260,7 @@ css += `
 #book-content #sbo-rt-content table p, #book-content #sbo-rt-content table tr td,
 #sbo-rt-content span.orm-highlight, #sbo-rt-content span.orm-annotation-highlight {
     font-family: "Times New Roman MT Std" !important;
-    font-size: 120%;
+    font-size: 30px;
 }
   `;
 }
