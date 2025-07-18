@@ -260,7 +260,6 @@ css += `
 #book-content #sbo-rt-content table p, #book-content #sbo-rt-content table tr td,
 #sbo-rt-content span.orm-highlight, #sbo-rt-content span.orm-annotation-highlight {
     font-family: "Noto Serif Condensed" !important;
-    font-size: 30px;
 }
   `;
 }
