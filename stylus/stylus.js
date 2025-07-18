@@ -252,7 +252,7 @@ css += `
 }
 if ((location.hostname === "oreilly.com" || location.hostname.endsWith(".oreilly.com"))) {
 css += `
-#book-content #sbo-rt-content p, #book-content #sbo-rt-content .note p, #book-content #sbo-rt-content blockquote, #book-content #sbo-rt-content blockquote p, #book-content #sbo-rt-content .blockquote p,
+#book-content #sbo-rt-content p *, #book-content #sbo-rt-content .note p, #book-content #sbo-rt-content blockquote, #book-content #sbo-rt-content blockquote p, #book-content #sbo-rt-content .blockquote p,
 #book-content #sbo-rt-content h1, #book-content #sbo-rt-content h2, #book-content #sbo-rt-content h3, #book-content #sbo-rt-content h4, #book-content #sbo-rt-content h5, #book-content #sbo-rt-content h6, #book-content #sbo-rt-content .heading-1, #book-content #sbo-rt-content .paragraph-head, #book-content #sbo-rt-content .cn-chapter-number, #book-content #sbo-rt-content .heading-3, #book-content #sbo-rt-content .title_document, #book-content #sbo-rt-content .fm_title_document, #book-content #sbo-rt-content .box_title, #book-content #sbo-rt-content .chaptertitle, #book-content #sbo-rt-content .chapterTitle, #book-content #sbo-rt-content .chapterNumber,
 #book-content #sbo-rt-content address, #book-content #sbo-rt-content caption, #book-content #sbo-rt-content cite, #book-content #sbo-rt-content code, #book-content #sbo-rt-content dfn, #book-content #sbo-rt-content strong, #book-content #sbo-rt-content th, #book-content #sbo-rt-content var,
 #book-content #sbo-rt-content a, #book-content #sbo-rt-content a:link, #book-content #sbo-rt-content a:visited,
