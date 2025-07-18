@@ -257,7 +257,8 @@ css += `
 #book-content #sbo-rt-content address, #book-content #sbo-rt-content caption, #book-content #sbo-rt-content cite, #book-content #sbo-rt-content code, #book-content #sbo-rt-content dfn, #book-content #sbo-rt-content strong, #book-content #sbo-rt-content th, #book-content #sbo-rt-content var,
 #book-content #sbo-rt-content a, #book-content #sbo-rt-content a:link, #book-content #sbo-rt-content a:visited,
 #book-content #sbo-rt-content ul li, #book-content #sbo-rt-content ol li, #book-content #sbo-rt-content ul li p, #book-content #sbo-rt-content ol li p,
-#book-content #sbo-rt-content table p, #book-content #sbo-rt-content table tr td {
+#book-content #sbo-rt-content table p, #book-content #sbo-rt-content table tr td,
+#sbo-rt-content span.orm-highlight, #sbo-rt-content span.orm-annotation-highlight {
     font-family: "Times New Roman MT Std" !important;
 }
   `;
