@@ -98,17 +98,17 @@ if ((location.hostname === "github.com" || location.hostname.endsWith(".github.c
 .markdown-body {
     font-family: MyFont !important;
 }
+div.react-code-text *,
+span[data-code-text]::before,
+.hljs, .hljs *, .cm-editor, .cm-editor * {
+    font-family: MyFontSrc !important;
+}
 .blob-code-inner,
 .blob-code-inner span,
 .blob-code-inner mark,
 .text-mono {
     font-family: MyFontSrc !important;
     font-size: 1em !important;
-}
-div.react-code-text *,
-span[data-code-text]::before,
-.hljs, .hljs * {
-    font-family: MyFontSrc !important;
 }
 textarea.react-blob-print-hide {
     font-family: MyFontSrc !important;
