@@ -61,37 +61,6 @@
     unicode-range: U+3040-30FF;
     src: local("Osaka");
 }
-
-body, body *, div, div *, section, section *,
-p, a, span, textarea, font,
-li, tr, td, dt, dd,
-input, label, select, button {
-    font-family: MyFont !important;
-}
-
-h1, h2, h3, h4, h5, b, em, strong {
-    font-family: MyFontBold !important;
-}
-
-code, code *, .code,
-[style*="monospace"],
-div.ace_editor, div.ace_editor *,
-.syntaxhighlighter code {
-    font-family: MyFontSrc !important;
-    font-variant-ligatures: none;
-}
-
-.material-icons {
-    font-family: "Material Icons" !important;
-}
-
-.glyphicon, .glyphicon:before, .glyphicon:after {
-    font-family: "Glyphicons Halflings" !important;
-}
-
-ruby > rt {
-    font-family: MyFont !important;
-}
   `;
 if ((location.hostname === "github.com" || location.hostname.endsWith(".github.com"))) {
   css += `
@@ -260,6 +229,39 @@ css += `
 }
   `;
 }
+
+css += `
+body, body *, div, div *, section, section *,
+p, a, span, textarea, font,
+li, tr, td, dt, dd,
+input, label, select, button {
+    font-family: MyFont !important;
+}
+
+h1, h2, h3, h4, h5, b, em, strong {
+    font-family: MyFontBold !important;
+}
+
+code, code *, .code,
+[style*="monospace"],
+div.ace_editor, div.ace_editor *,
+.syntaxhighlighter code {
+    font-family: MyFontSrc !important;
+    font-variant-ligatures: none;
+}
+
+.material-icons {
+    font-family: "Material Icons" !important;
+}
+
+.glyphicon, .glyphicon:before, .glyphicon:after {
+    font-family: "Glyphicons Halflings" !important;
+}
+
+ruby > rt {
+    font-family: MyFont !important;
+}
+`;
 // if (typeof GM_addStyle !== "undefined") {
 //   GM_addStyle(css);
 // } else {
