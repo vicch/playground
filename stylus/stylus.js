@@ -96,6 +96,7 @@
         display: none;
       }
     `,
+    
     "google.com": `
       .g, .std {
         font-family: MyFont !important;
@@ -154,7 +155,7 @@
       }
     `,
 
-    leetcode.com": `
+    "leetcode.com": `
       .monaco-editor .view-lines * {
         font-family: MyFontSrc !important;
       }
