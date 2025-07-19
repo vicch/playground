@@ -107,7 +107,7 @@ if ((location.hostname === "github.com" || location.hostname.endsWith(".github.c
 }
 div.react-code-text *,
 span[data-code-text]::before,
-.hljs, hljs * {
+.hljs, .hljs * {
     font-family: MyFontSrc !important;
 }
 textarea.react-blob-print-hide {
