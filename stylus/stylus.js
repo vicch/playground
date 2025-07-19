@@ -98,7 +98,6 @@ if ((location.hostname === "github.com" || location.hostname.endsWith(".github.c
 .markdown-body {
     font-family: MyFont !important;
 }
-
 .blob-code-inner,
 .blob-code-inner span,
 .blob-code-inner mark,
@@ -106,17 +105,15 @@ if ((location.hostname === "github.com" || location.hostname.endsWith(".github.c
     font-family: MyFontSrc !important;
     font-size: 1em !important;
 }
-
 div.react-code-text *,
-span[data-code-text]::before {
+span[data-code-text]::before,
+.hljs, hljs * {
     font-family: MyFontSrc !important;
 }
-
 textarea.react-blob-print-hide {
     font-family: MyFontSrc !important;
     line-height: 20px !important;
 }
-
 .markdown-body code,
 .markdown-body tt {
     border-radius: 3px;
