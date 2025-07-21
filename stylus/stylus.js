@@ -258,10 +258,32 @@
   document.documentElement.append(styleEl);
 
   // Force override <code> styles
-  document.querySelectorAll("code").forEach((el, index) => {
-    console.log(`[%cCode Element ${index + 1}%c]`, 'color: green; font-weight: bold;', 'color: reset;');
-    console.log('Element:', el);
-    console.log('Inner Text:', el.innerText.slice(0, 100) + (el.innerText.length > 100 ? '…' : ''));
-    el.style.setProperty("font-family", "MyFontSrc", "important");
+  function runFontOverride() {
+    const codes = document.querySelectorAll("code");
+    codes.forEach((el, index) => {
+      console.log(`[%cCode Element ${index + 1}%c]`, 'color: green; font-weight: bold;', 'color: reset;');
+      console.log('Element:', el);
+      console.log('Inner Text:', el.innerText.slice(0, 100) + (el.innerText.length > 100 ? '…' : ''));
+      el.style.setProperty("font-family", "MyFontSrc", "important");
+    });
+  }
+
+  function waitForCodeElements(callback, maxAttempts = 50, interval = 200) {
+    let attempts = 0;
+    const check = () => {
+      const codes = document.querySelectorAll("code");
+      if (codes.length > 0) {
+        callback();
+      } else if (attempts++ < maxAttempts) {
+        setTimeout(check, interval);
+      } else {
+        console.warn("Timed out waiting for <code> elements.");
+      }
+    };
+    check();
+  }
+
+  window.addEventListener("load", () => {
+    waitForCodeElements(runFontOverride);
   });
 })();
