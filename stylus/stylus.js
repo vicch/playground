@@ -261,9 +261,9 @@
   function runFontOverride() {
     const codes = document.querySelectorAll("code");
     codes.forEach((el, index) => {
-      console.log(`[%cCode Element ${index + 1}%c]`, 'color: green; font-weight: bold;', 'color: reset;');
-      console.log('Element:', el);
-      console.log('Inner Text:', el.innerText.slice(0, 100) + (el.innerText.length > 100 ? '…' : ''));
+      // console.log(`[%cCode Element ${index + 1}%c]`, 'color: green; font-weight: bold;', 'color: reset;');
+      // console.log('Element:', el);
+      // console.log('Inner Text:', el.innerText.slice(0, 100) + (el.innerText.length > 100 ? '…' : ''));
       el.style.setProperty("font-family", "MyFontSrc", "important");
     });
   }
