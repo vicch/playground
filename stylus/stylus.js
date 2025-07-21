@@ -268,7 +268,7 @@
     });
   }
 
-  function waitForCodeElements(callback, maxAttempts = 50, interval = 200) {
+  function waitForCodeElements(callback, maxAttempts = 500, interval = 10) {
     let attempts = 0;
     const check = () => {
       const codes = document.querySelectorAll("code");
