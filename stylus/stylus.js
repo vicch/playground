@@ -141,6 +141,9 @@
       .markdown-body code, .markdown-body tt {
         border-radius: 3px;
       }
+      .react-file-line.html-div {
+        height: 20px;
+      }
     `,
 
     "github.dev": `
