@@ -256,4 +256,9 @@
   const styleEl = document.createElement("style");
   styleEl.textContent = finalCSS;
   document.documentElement.append(styleEl);
+
+  // Force override <code> styles
+  document.querySelectorAll("code").forEach(el => {
+    el.style.setProperty("font-family", "MyFontSrc", "important");
+  });
 })();
