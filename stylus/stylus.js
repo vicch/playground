@@ -258,11 +258,10 @@
   document.documentElement.append(styleEl);
 
   // Force override <code> styles
-  document.querySelectorAll("code").forEach(el => {
+  document.querySelectorAll("code").forEach((el, index) => {
     console.log(`[%cCode Element ${index + 1}%c]`, 'color: green; font-weight: bold;', 'color: reset;');
     console.log('Element:', el);
     console.log('Inner Text:', el.innerText.slice(0, 100) + (el.innerText.length > 100 ? '…' : ''));
-    console.log('CSS Path:', getCssPath(el));
     el.style.setProperty("font-family", "MyFontSrc", "important");
   });
 })();
