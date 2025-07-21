@@ -258,7 +258,7 @@
   document.documentElement.append(styleEl);
 
   // Force override <code> styles
-  function runFontOverride() {
+  function overrideCodeFont() {
     const codes = document.querySelectorAll("code");
     codes.forEach((el, index) => {
       // console.log(`[%cCode Element ${index + 1}%c]`, 'color: green; font-weight: bold;', 'color: reset;');
@@ -267,23 +267,14 @@
       el.style.setProperty("font-family", "MyFontSrc", "important");
     });
   }
-
-  function waitForCodeElements(callback, maxAttempts = 500, interval = 10) {
-    let attempts = 0;
-    const check = () => {
-      const codes = document.querySelectorAll("code");
-      if (codes.length > 0) {
-        callback();
-      } else if (attempts++ < maxAttempts) {
-        setTimeout(check, interval);
-      } else {
-        console.warn("Timed out waiting for <code> elements.");
-      }
-    };
-    check();
-  }
-
   window.addEventListener("load", () => {
-    waitForCodeElements(runFontOverride);
+    overrideCodeFont();
+    const observer = new MutationObserver(() => {
+      overrideCodeFont(); // re-run whenever DOM changes
+    });
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
   });
 })();
