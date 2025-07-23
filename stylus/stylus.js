@@ -219,6 +219,22 @@
       #book-content #sbo-rt-content thead th,
       #book-content #sbo-rt-content thead td,
       #book-content #sbo-rt-content dt,
+      #book-content #sbo-rt-content .figure_legend h1,
+      #book-content #sbo-rt-content .figure_legend h2,
+      #book-content #sbo-rt-content .figure_legend h3,
+      #book-content #sbo-rt-content .figure_legend h4,
+      #book-content #sbo-rt-content .figure_legend h5,
+      #book-content #sbo-rt-content .figure_legend h6,
+      #book-content #sbo-rt-content .figure_legend p,
+      #book-content #sbo-rt-content .figure h1,
+      #book-content #sbo-rt-content .figure h2,
+      #book-content #sbo-rt-content .figure h3,
+      #book-content #sbo-rt-content .figure h4,
+      #book-content #sbo-rt-content .figure h5,
+      #book-content #sbo-rt-content .figure h6,
+      #book-content #sbo-rt-content .figure p,
+      #book-content #sbo-rt-content figcaption p,
+      #book-content #sbo-rt-content table caption,
       span.orm-highlight, span.orm-annotation-highlight {
         font-family: "Noto Serif Condensed" !important;
       }
