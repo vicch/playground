@@ -99,8 +99,8 @@
         const randomIndex = Math.floor(Math.random() * articles.length);
         const randomArticle = articles[randomIndex];
 
-        // Find the link within the article
-        const link = randomArticle.querySelector('a');
+        // Find the link within the article (direct child only)
+        const link = randomArticle.querySelector(':scope > a');
         
         if (link && link.href) {
             // Open the link in a new tab
