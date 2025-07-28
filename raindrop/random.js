@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Raindrop.io Random Bookmark
+// @name         Raindrop Random
 // @namespace    http://tampermonkey.net/
 // @version      1.0
 // @description  Add a Random button to Raindrop.io to navigate to random bookmarks
