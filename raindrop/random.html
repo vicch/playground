@@ -740,8 +740,17 @@
                     this.showLoading(true);
                     this.showStatus('Exchanging authorization code for access token...', 'info');
 
-                    // Try direct API call first
-                    let response;
+                    // Try multiple CORS proxies that support POST requests
+                    const proxies = [
+                        'https://api.allorigins.win/raw?url=',
+                        'https://corsproxy.io/?',
+                        'https://thingproxy.freeboard.io/fetch/'
+                    ];
+
+                    let response = null;
+                    let lastError = null;
+
+                    // Try direct call first
                     try {
                         response = await fetch('https://api.raindrop.io/v1/oauth/access_token', {
                             method: 'POST',
@@ -756,30 +765,48 @@
                                 redirect_uri: this.redirectUri
                             })
                         });
-                    } catch (corsError) {
-                        // If direct call fails due to CORS, try with proxy
-                        console.log('Direct token exchange failed, trying CORS proxy...');
-                        const corsProxy = 'https://cors-anywhere.herokuapp.com/';
-                        const apiUrl = 'https://api.raindrop.io/v1/oauth/access_token';
-                        
-                        response = await fetch(corsProxy + apiUrl, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded',
-                                'Origin': window.location.origin
-                            },
-                            body: new URLSearchParams({
-                                client_id: this.clientId,
-                                client_secret: this.clientSecret,
-                                grant_type: 'authorization_code',
-                                code: code,
-                                redirect_uri: this.redirectUri
-                            })
-                        });
+                    } catch (directError) {
+                        console.log('Direct call failed, trying proxies...');
+                        lastError = directError;
                     }
 
-                    if (!response.ok) {
-                        throw new Error(`Token exchange failed: ${response.status} ${response.statusText}`);
+                    // If direct call failed, try proxies
+                    if (!response || !response.ok) {
+                        for (const proxy of proxies) {
+                            try {
+                                console.log(`Trying proxy: ${proxy}`);
+                                
+                                // For POST requests with proxies, we need to encode the data differently
+                                const postData = new URLSearchParams({
+                                    client_id: this.clientId,
+                                    client_secret: this.clientSecret,
+                                    grant_type: 'authorization_code',
+                                    code: code,
+                                    redirect_uri: this.redirectUri
+                                }).toString();
+
+                                response = await fetch(proxy + 'https://api.raindrop.io/v1/oauth/access_token', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/x-www-form-urlencoded',
+                                    },
+                                    body: postData
+                                });
+
+                                if (response.ok) {
+                                    console.log('Proxy worked!');
+                                    break;
+                                }
+                            } catch (proxyError) {
+                                console.log(`Proxy ${proxy} failed:`, proxyError);
+                                lastError = proxyError;
+                                continue;
+                            }
+                        }
+                    }
+
+                    if (!response || !response.ok) {
+                        throw new Error(`Token exchange failed: ${response?.status || 'No response'} ${response?.statusText || lastError?.message || 'Unknown error'}`);
                     }
 
                     const data = await response.json();
@@ -795,10 +822,10 @@
                 } catch (error) {
                     console.error('Token exchange error:', error);
                     
-                    // If CORS error occurs during token exchange, show solutions
-                    if (error.message.includes('CORS') || error.message.includes('cors') || error.message.includes('Failed to fetch')) {
-                        this.showStatus('CORS error during authentication. Please try one of these solutions:', 'destructive');
-                        this.showCorsSolutions();
+                    // Show specific solutions for OAuth CORS issues
+                    if (error.message.includes('CORS') || error.message.includes('cors') || error.message.includes('Failed to fetch') || error.message.includes('403')) {
+                        this.showStatus('OAuth authentication failed due to CORS restrictions. Please try these solutions:', 'destructive');
+                        this.showOAuthCorsSolutions();
                     } else {
                         this.showStatus(`Authentication failed: ${error.message}`, 'destructive');
                     }
@@ -928,6 +955,70 @@
                 pageDisplay.classList.remove('hidden');
             }
 
+            showOAuthCorsSolutions() {
+                const pageDisplay = document.getElementById('pageDisplay');
+                pageDisplay.innerHTML = `
+                    <div class="page-card">
+                        <h2 class="page-title">🔐 OAuth CORS Error - Solutions</h2>
+                        <p class="page-excerpt">The OAuth token exchange is failing due to CORS restrictions. Here are solutions specifically for OAuth:</p>
+                        
+                        <div class="mb-4">
+                            <h3 class="text-lg font-semibold mb-2">Option 1: Browser Extension (Recommended)</h3>
+                            <p class="text-sm text-muted-foreground mb-2">Install a CORS browser extension that supports POST requests:</p>
+                            <ul class="text-sm text-muted-foreground ml-4 mb-4">
+                                <li>• <a href="https://chrome.google.com/webstore/detail/cors-unblock/lfhmikememgdcahcdlaciloancbhjino" target="_blank" class="text-primary">CORS Unblock (Chrome)</a></li>
+                                <li>• <a href="https://addons.mozilla.org/en-US/firefox/addon/cors-everywhere/" target="_blank" class="text-primary">CORS Everywhere (Firefox)</a></li>
+                            </ul>
+                            <p class="text-sm text-muted-foreground">Enable the extension, refresh this page, and try the OAuth flow again.</p>
+                        </div>
+
+                        <div class="mb-4">
+                            <h3 class="text-lg font-semibold mb-2">Option 2: Local Development Server</h3>
+                            <p class="text-sm text-muted-foreground mb-2">Run this app locally to avoid CORS issues:</p>
+                            <div class="bg-muted p-3 rounded text-sm font-mono">
+                                <p class="mb-1"># Clone your repository locally</p>
+                                <p class="mb-1">git clone https://github.com/vicch/playground.git</p>
+                                <p class="mb-1">cd playground</p>
+                                <p class="mb-1"># Start a local server</p>
+                                <p class="mb-1">python -m http.server 8000</p>
+                                <p class="mb-1"># Visit: http://localhost:8000/raindrop/random.html</p>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h3 class="text-lg font-semibold mb-2">Option 3: Use a Different Redirect URI</h3>
+                            <p class="text-sm text-muted-foreground mb-2">Update your Raindrop app settings to use a local redirect URI:</p>
+                            <div class="bg-muted p-3 rounded text-sm font-mono">
+                                <p class="mb-1"># In Raindrop Developer Settings, change redirect URI to:</p>
+                                <p class="mb-1">http://localhost:8000/raindrop/random.html</p>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h3 class="text-lg font-semibold mb-2">Option 4: Manual Token Exchange</h3>
+                            <p class="text-sm text-muted-foreground mb-2">If all else fails, you can manually exchange the code:</p>
+                            <div class="bg-muted p-3 rounded text-sm">
+                                <p class="mb-1">1. Copy the authorization code from the URL</p>
+                                <p class="mb-1">2. Use curl or Postman to exchange it:</p>
+                                <p class="mb-1 font-mono">curl -X POST https://api.raindrop.io/v1/oauth/access_token \\</p>
+                                <p class="mb-1 font-mono">  -d "client_id=6887b3826ad0dc928887828a" \\</p>
+                                <p class="mb-1 font-mono">  -d "client_secret=de95ca64-d33f-424e-9423-18345a9116cd" \\</p>
+                                <p class="mb-1 font-mono">  -d "grant_type=authorization_code" \\</p>
+                                <p class="mb-1 font-mono">  -d "code=YOUR_CODE_HERE" \\</p>
+                                <p class="mb-1 font-mono">  -d "redirect_uri=https://vicch.github.io/playground/raindrop/random.html"</p>
+                            </div>
+                        </div>
+
+                        <div class="separator"></div>
+                        <div class="text-center">
+                            <button onclick="location.reload()" class="btn btn-primary">🔄 Try Again</button>
+                            <button onclick="window.raindropApp.showAuthSection()" class="btn btn-secondary ml-2">🔙 Back to Auth</button>
+                        </div>
+                    </div>
+                `;
+                pageDisplay.classList.remove('hidden');
+            }
+
             pickRandomPage() {
                 if (this.pages.length === 0) {
                     this.showStatus('No pages available. Please refresh your collection.', 'destructive');
@@ -1008,7 +1099,7 @@
 
         // Initialize the app when the page loads
         document.addEventListener('DOMContentLoaded', () => {
-            new RaindropApp();
+            window.raindropApp = new RaindropApp();
         });
     </script>
 </body>
