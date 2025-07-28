@@ -126,7 +126,8 @@
       .markdown-body {
         font-family: MyFont !important;
       }
-      div.react-code-text *, span[data-code-text]::before {
+      .react-code-text, .react-code-text *,
+      span[data-code-text]::before {
         font-family: MyFontSrc !important;
       }
       .blob-code-inner, .blob-code-inner span,
