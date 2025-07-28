@@ -5,7 +5,6 @@
 // @description  Add a Random button to Raindrop.io to navigate to random bookmarks
 // @author       You
 // @match        https://app.raindrop.io/*
-// @require      https://raw.githubusercontent.com/vicch/playground/<commit>/raindrop/random.js
 // @grant        none
 // ==/UserScript==
 
