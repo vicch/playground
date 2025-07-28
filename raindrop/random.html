@@ -740,73 +740,27 @@
                     this.showLoading(true);
                     this.showStatus('Exchanging authorization code for access token...', 'info');
 
-                    // Try multiple CORS proxies that support POST requests
-                    const proxies = [
-                        'https://api.allorigins.win/raw?url=',
-                        'https://corsproxy.io/?',
-                        'https://thingproxy.freeboard.io/fetch/'
-                    ];
+                    // Make direct request to Raindrop API with proper CORS headers
+                    const response = await fetch('https://api.raindrop.io/v1/oauth/access_token', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                            'Accept': 'application/json',
+                        },
+                        credentials: 'omit', // Don't send cookies
+                        body: new URLSearchParams({
+                            client_id: this.clientId,
+                            client_secret: this.clientSecret,
+                            grant_type: 'authorization_code',
+                            code: code,
+                            redirect_uri: this.redirectUri
+                        })
+                    });
 
-                    let response = null;
-                    let lastError = null;
-
-                    // Try direct call first
-                    try {
-                        response = await fetch('https://api.raindrop.io/v1/oauth/access_token', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded',
-                            },
-                            body: new URLSearchParams({
-                                client_id: this.clientId,
-                                client_secret: this.clientSecret,
-                                grant_type: 'authorization_code',
-                                code: code,
-                                redirect_uri: this.redirectUri
-                            })
-                        });
-                    } catch (directError) {
-                        console.log('Direct call failed, trying proxies...');
-                        lastError = directError;
-                    }
-
-                    // If direct call failed, try proxies
-                    if (!response || !response.ok) {
-                        for (const proxy of proxies) {
-                            try {
-                                console.log(`Trying proxy: ${proxy}`);
-                                
-                                // For POST requests with proxies, we need to encode the data differently
-                                const postData = new URLSearchParams({
-                                    client_id: this.clientId,
-                                    client_secret: this.clientSecret,
-                                    grant_type: 'authorization_code',
-                                    code: code,
-                                    redirect_uri: this.redirectUri
-                                }).toString();
-
-                                response = await fetch(proxy + 'https://api.raindrop.io/v1/oauth/access_token', {
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'application/x-www-form-urlencoded',
-                                    },
-                                    body: postData
-                                });
-
-                                if (response.ok) {
-                                    console.log('Proxy worked!');
-                                    break;
-                                }
-                            } catch (proxyError) {
-                                console.log(`Proxy ${proxy} failed:`, proxyError);
-                                lastError = proxyError;
-                                continue;
-                            }
-                        }
-                    }
-
-                    if (!response || !response.ok) {
-                        throw new Error(`Token exchange failed: ${response?.status || 'No response'} ${response?.statusText || lastError?.message || 'Unknown error'}`);
+                    if (!response.ok) {
+                        const errorText = await response.text();
+                        console.error('Token exchange response:', response.status, errorText);
+                        throw new Error(`Token exchange failed: ${response.status} ${response.statusText}`);
                     }
 
                     const data = await response.json();
@@ -822,10 +776,10 @@
                 } catch (error) {
                     console.error('Token exchange error:', error);
                     
-                    // Show specific solutions for OAuth CORS issues
-                    if (error.message.includes('CORS') || error.message.includes('cors') || error.message.includes('Failed to fetch') || error.message.includes('403')) {
-                        this.showStatus('OAuth authentication failed due to CORS restrictions. Please try these solutions:', 'destructive');
-                        this.showOAuthCorsSolutions();
+                    // Check if it's a CORS error and provide specific guidance
+                    if (error.message.includes('CORS') || error.message.includes('cors') || error.message.includes('Failed to fetch')) {
+                        this.showStatus('CORS error during authentication. This might be due to the redirect URI mismatch. Please check your Raindrop app settings.', 'destructive');
+                        this.showCorsSolutions();
                     } else {
                         this.showStatus(`Authentication failed: ${error.message}`, 'destructive');
                     }
@@ -854,36 +808,22 @@
                     this.showLoading(true);
                     this.showStatus('Fetching your saved pages...', 'info');
 
-                    // Try direct API call first
-                    let response;
-                    try {
-                        response = await fetch('https://api.raindrop.io/v1/raindrops/0', {
-                            headers: {
-                                'Authorization': `Bearer ${this.accessToken}`,
-                                'Content-Type': 'application/json'
-                            }
-                        });
-                    } catch (corsError) {
-                        // If direct call fails due to CORS, try with proxy
-                        console.log('Direct API call failed, trying CORS proxy...');
-                        const corsProxy = 'https://cors-anywhere.herokuapp.com/';
-                        const apiUrl = 'https://api.raindrop.io/v1/raindrops/0';
-                        
-                        response = await fetch(corsProxy + apiUrl, {
-                            headers: {
-                                'Authorization': `Bearer ${this.accessToken}`,
-                                'Content-Type': 'application/json',
-                                'Origin': window.location.origin
-                            }
-                        });
-                    }
+                    // Make direct request to Raindrop API with proper CORS headers
+                    const response = await fetch('https://api.raindrop.io/v1/raindrops/0', {
+                        headers: {
+                            'Authorization': `Bearer ${this.accessToken}`,
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        credentials: 'omit' // Don't send cookies
+                    });
 
                     if (!response.ok) {
                         if (response.status === 401) {
                             // Token invalid
                             localStorage.removeItem('raindrop_access_token');
                             this.accessToken = null;
-                            this.showStatus('Invalid token. Please check your personal access token.', 'destructive');
+                            this.showStatus('Session expired. Please authenticate again.', 'destructive');
                             this.showAuthSection();
                             return;
                         }
@@ -898,7 +838,7 @@
                 } catch (error) {
                     console.error('Fetch error:', error);
                     
-                    // If both direct and proxy calls fail, show CORS solutions
+                    // Check if it's a CORS error
                     if (error.message.includes('CORS') || error.message.includes('cors') || error.message.includes('Failed to fetch')) {
                         this.showStatus('CORS error detected. Please try one of these solutions:', 'destructive');
                         this.showCorsSolutions();
@@ -915,10 +855,20 @@
                 pageDisplay.innerHTML = `
                     <div class="page-card">
                         <h2 class="page-title">🚫 CORS Error - Solutions</h2>
-                        <p class="page-excerpt">The Raindrop API doesn't allow direct browser requests. Here are some solutions:</p>
+                        <p class="page-excerpt">The CORS error might be due to redirect URI mismatch. Here are solutions:</p>
                         
                         <div class="mb-4">
-                            <h3 class="text-lg font-semibold mb-2">Option 1: Use a Browser Extension</h3>
+                            <h3 class="text-lg font-semibold mb-2">Option 1: Check Raindrop App Settings</h3>
+                            <p class="text-sm text-muted-foreground mb-2">Verify your redirect URI in Raindrop Developer Settings:</p>
+                            <div class="bg-muted p-3 rounded text-sm font-mono">
+                                <p class="mb-1">Redirect URI should be exactly:</p>
+                                <p class="mb-1">https://vicch.github.io/playground/raindrop/random.html</p>
+                            </div>
+                            <p class="text-sm text-muted-foreground">Make sure there are no extra spaces or characters.</p>
+                        </div>
+
+                        <div class="mb-4">
+                            <h3 class="text-lg font-semibold mb-2">Option 2: Use a Browser Extension</h3>
                             <p class="text-sm text-muted-foreground mb-2">Install a CORS browser extension:</p>
                             <ul class="text-sm text-muted-foreground ml-4 mb-4">
                                 <li>• <a href="https://chrome.google.com/webstore/detail/cors-unblock/lfhmikememgdcahcdlaciloancbhjino" target="_blank" class="text-primary">CORS Unblock (Chrome)</a></li>
@@ -928,27 +878,22 @@
                         </div>
 
                         <div class="mb-4">
-                            <h3 class="text-lg font-semibold mb-2">Option 2: Use a Local Server</h3>
-                            <p class="text-sm text-muted-foreground mb-2">Run this app locally with a simple server:</p>
+                            <h3 class="text-lg font-semibold mb-2">Option 3: Local Development</h3>
+                            <p class="text-sm text-muted-foreground mb-2">Run this app locally to test:</p>
                             <div class="bg-muted p-3 rounded text-sm font-mono">
-                                <p class="mb-1"># Using Python 3:</p>
+                                <p class="mb-1"># Clone and run locally</p>
+                                <p class="mb-1">git clone https://github.com/vicch/playground.git</p>
+                                <p class="mb-1">cd playground</p>
                                 <p class="mb-1">python -m http.server 8000</p>
-                                <p class="mb-1"># Then visit: http://localhost:8000</p>
+                                <p class="mb-1"># Visit: http://localhost:8000/raindrop/random.html</p>
                             </div>
-                        </div>
-
-                        <div class="mb-4">
-                            <h3 class="text-lg font-semibold mb-2">Option 3: Use Node.js Server</h3>
-                            <p class="text-sm text-muted-foreground mb-2">Create a simple proxy server:</p>
-                            <div class="bg-muted p-3 rounded text-sm font-mono">
-                                <p class="mb-1">npm install -g http-server</p>
-                                <p class="mb-1">http-server --cors</p>
-                            </div>
+                            <p class="text-sm text-muted-foreground">Update redirect URI to: <code>http://localhost:8000/raindrop/random.html</code></p>
                         </div>
 
                         <div class="separator"></div>
                         <div class="text-center">
                             <button onclick="location.reload()" class="btn btn-primary">🔄 Try Again</button>
+                            <button onclick="window.raindropApp.showAuthSection()" class="btn btn-secondary ml-2">🔙 Back to Auth</button>
                         </div>
                     </div>
                 `;
