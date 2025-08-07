@@ -242,6 +242,12 @@
       }
     `,
 
+    "snowflake.com": `
+      .cm-content * {
+        font-family: MyFontSrc !important;
+      }
+    `,
+
     "youtube.com": `
       paper-item, tp-yt-paper-item,
       yt-formatted-string.ytd-menu-service-item-renderer,
