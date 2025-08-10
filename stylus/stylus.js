@@ -3,6 +3,7 @@
     @font-face {
       font-family: "MyFont";
       unicode-range: U+00-024F;
+      font-weight: normal;
       src: local("AvenirNextCondensed-Medium");
       src: local("BarlowCondensed-Regular");
       src: local("RobotoCondensed-Regular");
@@ -11,17 +12,20 @@
     }
     @font-face {
       font-family: "MyFont";
+      font-weight: bold;
       unicode-range: U+4E00-9FFF;
       src: local("Heiti SC Medium");
     }
     @font-face {
       font-family: "MyFont";
       unicode-range: U+3040-30FF;
+      font-weight: normal;
       src: local("Osaka");
     }
     @font-face {
       font-family: "MyFont";
       unicode-range: U+E000-F8FF;
+      font-weight: normal;
       src: local("Font Awesome 5 Pro");
     }
     @font-face {
