@@ -1,12 +1,3 @@
-// ==UserScript==
-// @name         Google Docs
-// @namespace    http://tampermonkey.net/
-// @version      2025-05-15
-// @description  Google Docs canvas font
-// @author       You
-// @match        *://docs.google.com/*
-// ==/UserScript==
-
 (function() {
   'use strict';
 
