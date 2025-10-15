@@ -17,7 +17,7 @@
 // @version      2023-12-13
 // @description  Google Docs stylesheet overrides
 // @author       You
-// @match        *://*/*
+// @match        *://docs.google.com/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @require      https://raw.githubusercontent.com/vicch/playground/d3bfabfa49cb3aa17b16efdc9fcced7bc708432a/stylus/googledocs.js
 // @grant        GM_addStyle
