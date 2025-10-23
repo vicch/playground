@@ -71,6 +71,7 @@
       font-family: MyFontBold !important;
     }
     code, code *, .code,
+    pre, pre *,
     [style*="monospace"],
     div.ace_editor, div.ace_editor *,
     .syntaxhighlighter code {
