@@ -164,6 +164,12 @@
       }
     `,
 
+    "glean.com": `
+      pre, pre * {
+        font-family: MyFont !important;
+      }
+    `,
+
     "leetcode.com": `
       .monaco-editor .view-lines * {
         font-family: MyFontSrc !important;
