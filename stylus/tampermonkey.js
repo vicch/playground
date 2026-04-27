@@ -6,7 +6,7 @@
 // @author       You
 // @match        *://*/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
-// @require      https://raw.githubusercontent.com/vicch/playground/dbc44cf80ad7d99c075485f4daa9e2b8415c75ee/stylus/stylus.js
+// @require      https://raw.githubusercontent.com/vicch/playground/fde1334bf87e8833ea78a2ceb3fff4dcd31d053e/stylus/stylus.js
 // @grant        GM_addStyle
 // @run-at       document-end
 // ==/UserScript==
@@ -19,7 +19,7 @@
 // @author       You
 // @match        *://docs.google.com/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
-// @require      https://raw.githubusercontent.com/vicch/playground/d3bfabfa49cb3aa17b16efdc9fcced7bc708432a/stylus/googledocs.js
+// @require      https://raw.githubusercontent.com/vicch/playground/fde1334bf87e8833ea78a2ceb3fff4dcd31d053e/stylus/googledocs.js
 // @grant        GM_addStyle
 // @run-at       document-start
 // ==/UserScript==
