@@ -90,6 +90,11 @@
   `;
 
   const siteStyles = {
+    "coda.io": `
+      .kr-code-block * {
+        font-family: MyFontSrc !important;
+      }
+    `,
     "everyonepiano.cn": `
       #musicTitle {
         display: none !important;
