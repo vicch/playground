@@ -153,7 +153,7 @@
       pre, pre * {
         font-family: MyFont !important;
       }
-      .heading1, .heading2, .heading3, .heading4, .heading 5, .heading6 {
+      .heading1, .heading2, .heading3, .heading4, .heading5, .heading6 {
         font-family: MyFontBold !important;
       }
     `,
