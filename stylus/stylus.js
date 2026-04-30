@@ -107,33 +107,6 @@
         display: none;
       }
     `,
-
-    "glean.com": `
-      .heading1, .heading2, .heading3, .heading4, .heading 5, .heading6 {
-        font-family: MyFontBold !important;
-      }
-    `,
-    
-    "google.com": `
-      .g, .std {
-        font-family: MyFont !important;
-      }
-      .ha > .hP {
-        font-family: MyFontBold !important;
-      }
-      div.view-lines div.view-line span {
-        font-family: MyFontSrc !important;
-      }
-      .material-icons-extended, span.material-icons-extended {
-        font-family: "Material Icons Extended" !important;
-      }
-      .google-symbols {
-        font-family: "Google Symbols" !important;
-      }
-      .google-material-icons {
-        font-family: "Google Material Icons" !important;
-      }
-    `,
     
     "github.com": `
       .markdown-body {
@@ -179,6 +152,30 @@
     "glean.com": `
       pre, pre * {
         font-family: MyFont !important;
+      }
+      .heading1, .heading2, .heading3, .heading4, .heading 5, .heading6 {
+        font-family: MyFontBold !important;
+      }
+    `,
+
+    "google.com": `
+      .g, .std {
+        font-family: MyFont !important;
+      }
+      .ha > .hP {
+        font-family: MyFontBold !important;
+      }
+      div.view-lines div.view-line span {
+        font-family: MyFontSrc !important;
+      }
+      .material-icons-extended, span.material-icons-extended {
+        font-family: "Material Icons Extended" !important;
+      }
+      .google-symbols {
+        font-family: "Google Symbols" !important;
+      }
+      .google-material-icons {
+        font-family: "Google Material Icons" !important;
       }
     `,
 
