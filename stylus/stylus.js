@@ -95,6 +95,7 @@
         font-family: MyFontSrc !important;
       }
     `,
+    
     "everyonepiano.cn": `
       #musicTitle {
         display: none !important;
@@ -104,6 +105,12 @@
     "flickr.com": `
       .showcase {
         display: none;
+      }
+    `,
+
+    "glean.com": `
+      .heading1, .heading2, .heading3, .heading4, .heading 5, .heading6 {
+        font-family: MyFontBold !important;
       }
     `,
     
