@@ -46,7 +46,7 @@
     @font-face {
       font-family: "MyFontSrc";
       unicode-range: U+00-024F;
-      src: local("Iosevka Condensed");
+      src: local("Iosevka");
     }
     @font-face {
       font-family: "MyFontSrc";
