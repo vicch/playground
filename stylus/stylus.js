@@ -177,6 +177,9 @@
       .google-material-icons {
         font-family: "Google Material Icons" !important;
       }
+      mat-icon {
+        font-family: "Luminous Symbols" !important;
+      }
     `,
 
     "leetcode.com": `
