@@ -171,7 +171,7 @@
       .material-icons-extended, span.material-icons-extended {
         font-family: "Material Icons Extended" !important;
       }
-      .google-symbols {
+      .google-symbols, .material-symbols-outlined {
         font-family: "Google Symbols" !important;
       }
       .google-material-icons {
