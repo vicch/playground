@@ -6,8 +6,8 @@
       src: local("BarlowCondensed-Regular");
       src: local("RobotoCondensed-Regular");
       src: local("Helvetica Condensed");
-      src: local("FFGoodProNarr-News");
       src: local("AvenirNextCondensed-Regular");
+      src: local("FFGoodProNarr-News");
     }
     @font-face {
       font-family: "MyFont";
@@ -31,8 +31,8 @@
       src: local("BarlowCondensed-Bold");
       src: local("RobotoCondensed-Bold");
       src: local("Helvetica Condensed Bold");
-      src: local("FFGoodProNarr-Bold");
       src: local("AvenirNextCondensed-DemiBold");
+      src: local("FFGoodProNarr-Bold");
     }
     @font-face {
       font-family: "MyFontBold";
