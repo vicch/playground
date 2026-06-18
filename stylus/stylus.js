@@ -3,11 +3,11 @@
     @font-face {
       font-family: "MyFont";
       unicode-range: U+00-024F;
-      src: local("AvenirNextCondensed-Medium"),
-           local("BarlowCondensed-Regular"),
-           local("RobotoCondensed-Regular"),
-           local("Helvetica Condensed"),
-           local("FFGoodProNarr-News");
+      src: local("BarlowCondensed-Regular");
+      src: local("RobotoCondensed-Regular");
+      src: local("Helvetica Condensed");
+      src: local("FFGoodProNarr-News");
+      src: local("AvenirNextCondensed-Regular");
     }
     @font-face {
       font-family: "MyFont";
@@ -28,11 +28,11 @@
     @font-face {
       font-family: "MyFontBold";
       unicode-range: U+00-024F;
-      src: local("AvenirNextCondensed-Bold"),
-           local("BarlowCondensed-Bold"),
-           local("RobotoCondensed-Bold"),
-           local("Helvetica Condensed Bold"),
-           local("FFGoodProNarr-Bold");
+      src: local("BarlowCondensed-Bold");
+      src: local("RobotoCondensed-Bold");
+      src: local("Helvetica Condensed Bold");
+      src: local("FFGoodProNarr-Bold");
+      src: local("AvenirNextCondensed-DemiBold");
     }
     @font-face {
       font-family: "MyFontBold";
