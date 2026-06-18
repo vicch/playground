@@ -130,6 +130,31 @@
   // Genuinely site-specific overrides: nonstandard icon-font names,
   // or a deliberate font preference for that site. Everything else is global.
   const siteStyles = {
+    "github.com": `
+      .markdown-body {
+        font-family: MyFont !important;
+      }
+      .react-code-text, .react-code-text *,
+      span[data-code-text]::before {
+        font-family: MyFontSrc !important;
+      }
+      .blob-code-inner, .blob-code-inner span,
+      .blob-code-inner mark, .text-mono {
+        font-family: MyFontSrc !important;
+        font-size: 1em !important;
+      }
+      textarea.react-blob-print-hide {
+        font-family: MyFontSrc !important;
+        line-height: 20px !important;
+      }
+      .markdown-body code, .markdown-body tt {
+        border-radius: 3px;
+      }
+      .react-file-line.html-div {
+        height: 20px;
+      }
+    `,
+    
     "google.com": `
       .material-icons-extended {
         font-family: "Material Icons Extended" !important;
