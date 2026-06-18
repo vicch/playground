@@ -107,8 +107,7 @@
 
     /* Icon rescue: re-assert standard element-text icon fonts so * doesn't clobber them.
        Pseudo-element icon fonts need no rescue (we never touch pseudos). */
-    .material-icons,
-    [class*="material-icons"]:not([class*="extended"]) {
+    .material-icons {
       font-family: "Material Icons" !important;
     }
     .material-symbols-outlined,
