@@ -8,7 +8,6 @@
       src: local("Helvetica Condensed");
       src: local("AvenirNextCondensed-Regular");
       src: local("FFGoodProNarr-News");
-      src: local("AcuminProCond-Regular");
     }
     @font-face {
       font-family: "MyFont";
@@ -34,7 +33,6 @@
       src: local("Helvetica Condensed Bold");
       src: local("AvenirNextCondensed-DemiBold");
       src: local("FFGoodProNarr-Bold");
-      src: local("AcuminProCond-SemiBold");
     }
     @font-face {
       font-family: "MyFontBold";
