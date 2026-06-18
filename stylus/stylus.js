@@ -1,13 +1,13 @@
 (function () {
-  const globalFontFaces = `
+  const fontFaces = `
     @font-face {
       font-family: "MyFont";
       unicode-range: U+00-024F;
-      src: local("AvenirNextCondensed-Medium");
-      src: local("BarlowCondensed-Regular");
-      src: local("RobotoCondensed-Regular");
-      src: local("Helvetica Condensed");
-      src: local("FFGoodProNarr-News");
+      src: local("AvenirNextCondensed-Medium"),
+           local("BarlowCondensed-Regular"),
+           local("RobotoCondensed-Regular"),
+           local("Helvetica Condensed"),
+           local("FFGoodProNarr-News");
     }
     @font-face {
       font-family: "MyFont";
@@ -24,14 +24,15 @@
       unicode-range: U+E000-F8FF;
       src: local("Font Awesome 5 Pro");
     }
+
     @font-face {
       font-family: "MyFontBold";
       unicode-range: U+00-024F;
-      src: local("AvenirNextCondensed-Bold");
-      src: local("BarlowCondensed-Bold");
-      src: local("RobotoCondensed-Bold");
-      src: local("Helvetica Condensed Bold");
-      src: local("FFGoodProNarr-Bold");
+      src: local("AvenirNextCondensed-Bold"),
+           local("BarlowCondensed-Bold"),
+           local("RobotoCondensed-Bold"),
+           local("Helvetica Condensed Bold"),
+           local("FFGoodProNarr-Bold");
     }
     @font-face {
       font-family: "MyFontBold";
@@ -43,6 +44,7 @@
       unicode-range: U+3040-30FF;
       src: local("Osaka");
     }
+
     @font-face {
       font-family: "MyFontSrc";
       unicode-range: U+00-024F;
@@ -61,236 +63,91 @@
   `;
 
   const globalStyles = `
-    body, body *, div, div *, section, section *,
-    p, a, span, textarea, font,
-    li, tr, td, dt, dd,
-    input, label, select, button {
+    /* Base: one universal rule. font-family inherits, !important beats site styles.
+       Targets elements only (not ::before/::after), so pseudo-element icon fonts
+       (Font Awesome, glyphicons, etc.) are left intact automatically. */
+    * {
       font-family: MyFont !important;
     }
-    h1, h2, h3, h4, h5, b, em, strong {
+
+    /* Bold */
+    h1, h2, h3, h4, h5, h6,
+    b, strong, em, th,
+    [class*="bold" i],
+    [class*="heading" i],
+    [style*="font-weight:6"],
+    [style*="font-weight:7"],
+    [style*="font-weight:8"],
+    [style*="font-weight:9"],
+    [style*="font-weight: 6"],
+    [style*="font-weight: 7"],
+    [style*="font-weight: 8"],
+    [style*="font-weight: 9"] {
       font-family: MyFontBold !important;
     }
-    code, code *, .code,
+
+    /* Monospace / code, across the common editors. Replaces the per-site code rules. */
+    code, code *,
     pre, pre *,
+    kbd, samp, tt, xmp,
     [style*="monospace"],
-    div.ace_editor, div.ace_editor *,
-    .syntaxhighlighter code {
+    [class*="monospace" i],
+    [class*="hljs"],
+    .monaco-editor .view-line,
+    .monaco-editor .view-line *,
+    [class*="CodeMirror"] *,
+    [class*="cm-content"] *,
+    [class*="cm-line"] *,
+    [class*="ace_"],
+    [class*="code-block" i] *,
+    [class*="codeblock" i] * {
       font-family: MyFontSrc !important;
       font-variant-ligatures: none;
     }
-    .material-icons {
+
+    /* Icon rescue: re-assert standard element-text icon fonts so * doesn't clobber them.
+       Pseudo-element icon fonts need no rescue (we never touch pseudos). */
+    .material-icons,
+    [class*="material-icons"]:not([class*="extended"]) {
       font-family: "Material Icons" !important;
     }
-    .glyphicon, .glyphicon:before, .glyphicon:after {
-      font-family: "Glyphicons Halflings" !important;
+    .material-symbols-outlined,
+    .material-symbols-rounded,
+    .material-symbols-sharp,
+    [class*="material-symbols"] {
+      font-family: "Material Symbols Outlined" !important;
     }
-    ruby > rt {
-      font-family: MyFont !important;
+    .google-material-icons {
+      font-family: "Google Material Icons" !important;
+    }
+    [class*="codicon"] {
+      font-family: "codicon" !important;
+    }
+    .glyphicon {
+      font-family: "Glyphicons Halflings" !important;
     }
   `;
 
+  // Genuinely site-specific overrides: nonstandard icon-font names,
+  // or a deliberate font preference for that site. Everything else is global.
   const siteStyles = {
-    "coda.io": `
-      .kr-code-block * {
-        font-family: MyFontSrc !important;
-      }
-    `,
-    
-    "everyonepiano.cn": `
-      #musicTitle {
-        display: none !important;
-      }
-    `,
-    
-    "flickr.com": `
-      .showcase {
-        display: none;
-      }
-    `,
-    
-    "github.com": `
-      .markdown-body {
-        font-family: MyFont !important;
-      }
-      .react-code-text, .react-code-text *,
-      span[data-code-text]::before {
-        font-family: MyFontSrc !important;
-      }
-      .blob-code-inner, .blob-code-inner span,
-      .blob-code-inner mark, .text-mono {
-        font-family: MyFontSrc !important;
-        font-size: 1em !important;
-      }
-      textarea.react-blob-print-hide {
-        font-family: MyFontSrc !important;
-        line-height: 20px !important;
-      }
-      .markdown-body code, .markdown-body tt {
-        border-radius: 3px;
-      }
-      .react-file-line.html-div {
-        height: 20px;
-      }
-    `,
-
-    "github.dev": `
-      .monaco-editor .view-lines * {
-        font-family: MyFontSrc !important;
-      }
-      .codicon[class*=codicon-] {
-        font-family: codicon !important;
-      }
-    `,
-
-    "githubusercontent.com": `
-      .hljs, .hljs *,
-      .cm-editor, .cm-editor * {
-        font-family: MyFontSrc !important;
-      }
-    `,
-
-    "glean.com": `
-      pre, pre * {
-        font-family: MyFont !important;
-      }
-      .heading1, .heading2, .heading3, .heading4, .heading5, .heading6 {
-        font-family: MyFontBold !important;
-      }
-    `,
-
     "google.com": `
-      .g, .std {
-        font-family: MyFont !important;
-      }
-      .ha > .hP {
-        font-family: MyFontBold !important;
-      }
-      div.view-lines div.view-line span {
-        font-family: MyFontSrc !important;
-      }
-      .material-icons-extended, span.material-icons-extended {
+      .material-icons-extended {
         font-family: "Material Icons Extended" !important;
       }
-      .google-symbols, .material-symbols-outlined {
+      .google-symbols,
+      .material-symbols-outlined {
         font-family: "Google Symbols" !important;
-      }
-      .google-material-icons {
-        font-family: "Google Material Icons" !important;
       }
       mat-icon {
         font-family: "Luminous Symbols" !important;
       }
     `,
 
-    "leetcode.com": `
-      .monaco-editor .view-lines * {
-        font-family: MyFontSrc !important;
-      }
-    `,
-
-    "movielens.org": `
-      .fa {
-        font-family: FontAwesome !important;
-      }
-    `,
-
-    "notion.so": `
-      .notion-code-block * {
-        font-family: MyFontSrc !important;
-      }
-      [style*="font-weight:600"] {
-        font-family: MyFontBold !important;
-      }
-    `,
-
     "oreilly.com": `
-      #book-content #sbo-rt-content p,
-      #book-content #sbo-rt-content p *,
-      #book-content #sbo-rt-content .note p,
-      #book-content #sbo-rt-content blockquote,
-      #book-content #sbo-rt-content blockquote p,
-      #book-content #sbo-rt-content .blockquote p,
-      #book-content #sbo-rt-content h1,
-      #book-content #sbo-rt-content h2,
-      #book-content #sbo-rt-content h3,
-      #book-content #sbo-rt-content h4,
-      #book-content #sbo-rt-content h5,
-      #book-content #sbo-rt-content h6,
-      #book-content #sbo-rt-content .heading-1,
-      #book-content #sbo-rt-content .paragraph-head,
-      #book-content #sbo-rt-content .cn-chapter-number,
-      #book-content #sbo-rt-content .heading-3,
-      #book-content #sbo-rt-content .title_document,
-      #book-content #sbo-rt-content .fm_title_document,
-      #book-content #sbo-rt-content .box_title,
-      #book-content #sbo-rt-content .chaptertitle,
-      #book-content #sbo-rt-content .chapterTitle,
-      #book-content #sbo-rt-content .chapterNumber,
-      #book-content #sbo-rt-content a,
-      #book-content #sbo-rt-content a:link,
-      #book-content #sbo-rt-content a:visited,
-      #book-content #sbo-rt-content ul li,
-      #book-content #sbo-rt-content ol li,
-      #book-content #sbo-rt-content ul li p,
-      #book-content #sbo-rt-content ol li p,
-      #book-content #sbo-rt-content table p,
-      #book-content #sbo-rt-content table tr td,
-      #book-content #sbo-rt-content thead,
-      #book-content #sbo-rt-content thead th,
-      #book-content #sbo-rt-content thead td,
-      #book-content #sbo-rt-content dt,
-      #book-content #sbo-rt-content .figure_legend h1,
-      #book-content #sbo-rt-content .figure_legend h2,
-      #book-content #sbo-rt-content .figure_legend h3,
-      #book-content #sbo-rt-content .figure_legend h4,
-      #book-content #sbo-rt-content .figure_legend h5,
-      #book-content #sbo-rt-content .figure_legend h6,
-      #book-content #sbo-rt-content .figure_legend p,
-      #book-content #sbo-rt-content .figure h1,
-      #book-content #sbo-rt-content .figure h2,
-      #book-content #sbo-rt-content .figure h3,
-      #book-content #sbo-rt-content .figure h4,
-      #book-content #sbo-rt-content .figure h5,
-      #book-content #sbo-rt-content .figure h6,
-      #book-content #sbo-rt-content .figure p,
-      #book-content #sbo-rt-content figcaption p,
-      #book-content #sbo-rt-content table caption,
-      span.orm-highlight, span.orm-annotation-highlight {
+      #book-content #sbo-rt-content,
+      #book-content #sbo-rt-content * {
         font-family: "Noto Serif Condensed" !important;
-      }
-    `,
-
-    "snowflake.com": `
-      .cm-content * {
-        font-family: MyFontSrc !important;
-      }
-    `,
-
-    "youtube.com": `
-      paper-item, tp-yt-paper-item,
-      yt-formatted-string.ytd-menu-service-item-renderer,
-      ytd-rich-grid-media[mini-mode] #video-title.ytd-rich-grid-media,
-      .title.ytd-guide-entry-renderer, .message.ytd-notification-renderer,
-      #video-title.ytd-rich-grid-media, #content-text.ytd-comment-renderer {
-        font-family: MyFont !important;
-      }
-      ytd-thumbnail[size=large] a.ytd-thumbnail,
-      ytd-thumbnail[size=large]:before {
-        border-radius: 0;
-      }
-    `,
-
-    "wanikani.com": `
-      .vocabulary, [lang="ja"] {
-        font-family: MyFont !important;
-      }
-      #lesson #supplement-info #prev-btn,
-      #lesson #supplement-info #next-btn {
-        font-family: FontAwesome !important;
-      }
-      .fa-classic, .fa-light, .fa-regular, .fa-solid, .fa-thin,
-      .fal, .far, .fas, .fat {
-        font-family: "Font Awesome 6 Pro" !important;
       }
     `,
 
@@ -305,41 +162,29 @@
         unicode-range: U+4E00-9FFF;
         src: local("FZSong III-Z05");
       }
-      span[data-wr-role="text"] {
-        font-family: MyFont !important;
+    `,
+
+    "everyonepiano.cn": `
+      #musicTitle {
+        display: none !important;
+      }
+    `,
+
+    "flickr.com": `
+      .showcase {
+        display: none;
       }
     `,
   };
 
   function getMatchingSiteStyle(hostname) {
-    return Object.entries(siteStyles).map(([pattern, css]) =>
-      hostname === pattern || hostname.endsWith("." + pattern) ? css : ""
-    ).join("\n");
+    return Object.entries(siteStyles)
+      .filter(([pattern]) => hostname === pattern || hostname.endsWith("." + pattern))
+      .map(([, css]) => css)
+      .join("\n");
   }
 
-  const finalCSS = globalFontFaces + globalStyles + getMatchingSiteStyle(location.hostname);
   const styleEl = document.createElement("style");
-  styleEl.textContent = finalCSS;
+  styleEl.textContent = fontFaces + globalStyles + getMatchingSiteStyle(location.hostname);
   document.documentElement.append(styleEl);
-
-  // Force override <code> styles
-  function overrideCodeFont() {
-    const codes = document.querySelectorAll("code");
-    codes.forEach((el, index) => {
-      // console.log(`[%cCode Element ${index + 1}%c]`, 'color: green; font-weight: bold;', 'color: reset;');
-      // console.log('Element:', el);
-      // console.log('Inner Text:', el.innerText.slice(0, 100) + (el.innerText.length > 100 ? '…' : ''));
-      el.style.setProperty("font-family", "MyFontSrc", "important");
-    });
-  }
-  window.addEventListener("load", () => {
-    overrideCodeFont();
-    const observer = new MutationObserver(() => {
-      overrideCodeFont(); // re-run whenever DOM changes
-    });
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true
-    });
-  });
 })();
