@@ -154,6 +154,15 @@
         height: 20px;
       }
     `,
+
+    "glean.com": `
+      pre, pre * {
+        font-family: MyFont !important;
+      }
+      .heading1, .heading2, .heading3, .heading4, .heading5, .heading6 {
+        font-family: MyFontBold !important;
+      }
+    `,
     
     "google.com": `
       .material-icons-extended {
