@@ -34,7 +34,7 @@
       src: local("Helvetica Condensed Bold");
       src: local("AvenirNextCondensed-DemiBold");
       src: local("FFGoodProNarr-Bold");
-      src: local("UniversLTStd-BoldCn");
+      src: local("UniversLTStd-Cn");
     }
     @font-face {
       font-family: "MyFontBold";
