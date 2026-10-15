@@ -8,7 +8,7 @@
       src: local("Helvetica Condensed");
       src: local("AvenirNextCondensed-Regular");
       src: local("FFGoodProNarr-News");
-      src: local("UniversStLtd-Cn");
+      src: local("UniversLTStd-Cn");
     }
     @font-face {
       font-family: "MyFont";
@@ -34,7 +34,7 @@
       src: local("Helvetica Condensed Bold");
       src: local("AvenirNextCondensed-DemiBold");
       src: local("FFGoodProNarr-Bold");
-      src: local("UniversStLtd-BoldCn");
+      src: local("UniversLTStd-BoldCn");
     }
     @font-face {
       font-family: "MyFontBold";
