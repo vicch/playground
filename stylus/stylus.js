@@ -13,7 +13,6 @@
     }
     @font-face {
       font-family: "MyFont";
-      font-weight: 700;
       unicode-range: U+4E00-9FFF;
       src: local("Heiti SC Medium");
     }
