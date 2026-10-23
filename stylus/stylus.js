@@ -259,7 +259,8 @@
       // Wrap the Chinese characters
       const span = document.createElement("span");
       span.className = "cjk-bold-wrap";
-      span.style.webkitTextStroke = "0.35px currentColor"; // Tune this value (e.g. 0.2px - 0.5px)
+      span.style.fontWeight = "700";
+      // span.style.webkitTextStroke = "0.35px currentColor"; // Tune this value (e.g. 0.2px - 0.5px)
       span.textContent = match[0];
       fragment.appendChild(span);
       
