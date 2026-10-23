@@ -227,92 +227,92 @@
   styleEl.textContent = fontFaces + globalStyles + getMatchingSiteStyle(location.hostname);
   document.documentElement.append(styleEl);
 
-  // --- TARGET WEIGHT LOGIC START ---
-  const targetRanges = [
-    "\\u4E00-\\u9FFF", // CJK Unified Ideographs
-    "\\u3040-\\u30FF"  // Japanese Hiragana & Katakana
-  ];
+  // // --- TARGET WEIGHT LOGIC START ---
+  // const targetRanges = [
+  //   "\\u4E00-\\u9FFF", // CJK Unified Ideographs
+  //   "\\u3040-\\u30FF"  // Japanese Hiragana & Katakana
+  // ];
   
-  // Dynamically build the regex: /([\u4E00-\u9FFF\u3040-\u30FF]+)/g
-  const targetRegex = new RegExp(`([${targetRanges.join('')}]+)`, 'g');
+  // // Dynamically build the regex: /([\u4E00-\u9FFF\u3040-\u30FF]+)/g
+  // const targetRegex = new RegExp(`([${targetRanges.join('')}]+)`, 'g');
 
-  function wrapTargetText(node) {
-    const parent = node.parentNode;
+  // function wrapTargetText(node) {
+  //   const parent = node.parentNode;
     
-    // Skip invalid parents, already wrapped elements, and code editors/inputs
-    if (!parent ||
-        ['STYLE', 'SCRIPT', 'NOSCRIPT', 'TEXTAREA', 'TITLE'].includes(parent.nodeName) ||
-        parent.classList.contains('custom-weight-wrap') ||
-        parent.isContentEditable) {
-      return;
-    }
+  //   // Skip invalid parents, already wrapped elements, and code editors/inputs
+  //   if (!parent ||
+  //       ['STYLE', 'SCRIPT', 'NOSCRIPT', 'TEXTAREA', 'TITLE'].includes(parent.nodeName) ||
+  //       parent.classList.contains('custom-weight-wrap') ||
+  //       parent.isContentEditable) {
+  //     return;
+  //   }
 
-    const text = node.nodeValue;
-    if (!targetRegex.test(text)) return;
+  //   const text = node.nodeValue;
+  //   if (!targetRegex.test(text)) return;
 
-    // Use a DocumentFragment to safely replace the text node without breaking site JS
-    const fragment = document.createDocumentFragment();
-    let lastIndex = 0;
-    let match;
-    targetRegex.lastIndex = 0; // Reset regex state
+  //   // Use a DocumentFragment to safely replace the text node without breaking site JS
+  //   const fragment = document.createDocumentFragment();
+  //   let lastIndex = 0;
+  //   let match;
+  //   targetRegex.lastIndex = 0; // Reset regex state
 
-    while ((match = targetRegex.exec(text)) !== null) {
-      // Append text before the target characters
-      if (match.index > lastIndex) {
-        fragment.appendChild(document.createTextNode(text.slice(lastIndex, match.index)));
-      }
+  //   while ((match = targetRegex.exec(text)) !== null) {
+  //     // Append text before the target characters
+  //     if (match.index > lastIndex) {
+  //       fragment.appendChild(document.createTextNode(text.slice(lastIndex, match.index)));
+  //     }
       
-      // Wrap the target characters
-      const span = document.createElement("span");
-      span.className = "custom-weight-wrap";
-      span.style.fontWeight = "700";
-      // span.style.webkitTextStroke = "0.35px currentColor";
-      span.textContent = match[0];
-      fragment.appendChild(span);
+  //     // Wrap the target characters
+  //     const span = document.createElement("span");
+  //     span.className = "custom-weight-wrap";
+  //     span.style.fontWeight = "700";
+  //     // span.style.webkitTextStroke = "0.35px currentColor";
+  //     span.textContent = match[0];
+  //     fragment.appendChild(span);
       
-      lastIndex = targetRegex.lastIndex;
-    }
+  //     lastIndex = targetRegex.lastIndex;
+  //   }
 
-    // Append any remaining text after the last match
-    if (lastIndex < text.length) {
-      fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
-    }
+  //   // Append any remaining text after the last match
+  //   if (lastIndex < text.length) {
+  //     fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
+  //   }
 
-    parent.replaceChild(fragment, node);
-  }
+  //   parent.replaceChild(fragment, node);
+  // }
 
-  function scanDOM(root) {
-    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
-    const textNodes = [];
-    while (walker.nextNode()) textNodes.push(walker.currentNode);
-    textNodes.forEach(wrapTargetText);
-  }
+  // function scanDOM(root) {
+  //   const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+  //   const textNodes = [];
+  //   while (walker.nextNode()) textNodes.push(walker.currentNode);
+  //   textNodes.forEach(wrapTargetText);
+  // }
 
-  const initScan = () => {
-    // 1. Initial scan on load
-    scanDOM(document.body);
+  // const initScan = () => {
+  //   // 1. Initial scan on load
+  //   scanDOM(document.body);
     
-    // 2. Observe dynamic changes (SPAs, lazy loading, infinite scroll)
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        mutation.addedNodes.forEach((node) => {
-          if (node.nodeType === Node.TEXT_NODE) {
-            wrapTargetText(node);
-          } else if (node.nodeType === Node.ELEMENT_NODE) {
-            scanDOM(node);
-          }
-        });
-      });
-    });
+  //   // 2. Observe dynamic changes (SPAs, lazy loading, infinite scroll)
+  //   const observer = new MutationObserver((mutations) => {
+  //     mutations.forEach((mutation) => {
+  //       mutation.addedNodes.forEach((node) => {
+  //         if (node.nodeType === Node.TEXT_NODE) {
+  //           wrapTargetText(node);
+  //         } else if (node.nodeType === Node.ELEMENT_NODE) {
+  //           scanDOM(node);
+  //         }
+  //       });
+  //     });
+  //   });
     
-    observer.observe(document.body, { childList: true, subtree: true });
-  };
+  //   observer.observe(document.body, { childList: true, subtree: true });
+  // };
 
-  // Wait for body to exist before scanning
-  if (document.body) {
-    initScan();
-  } else {
-    document.addEventListener('DOMContentLoaded', initScan);
-  }
-  // --- TARGET WEIGHT LOGIC END ---
+  // // Wait for body to exist before scanning
+  // if (document.body) {
+  //   initScan();
+  // } else {
+  //   document.addEventListener('DOMContentLoaded', initScan);
+  // }
+  // // --- TARGET WEIGHT LOGIC END ---
 })();
