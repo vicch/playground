@@ -226,4 +226,86 @@
   const styleEl = document.createElement("style");
   styleEl.textContent = fontFaces + globalStyles + getMatchingSiteStyle(location.hostname);
   document.documentElement.append(styleEl);
+
+  // --- NEW CJK BOLDING LOGIC START ---
+  const cjkRegex = /([\u4E00-\u9FFF]+)/g;
+
+  function wrapCJKText(node) {
+    const parent = node.parentNode;
+    
+    // Skip invalid parents, already wrapped elements, and code editors/inputs
+    if (!parent ||
+        ['STYLE', 'SCRIPT', 'NOSCRIPT', 'TEXTAREA', 'TITLE'].includes(parent.nodeName) ||
+        parent.classList.contains('cjk-bold-wrap') ||
+        parent.isContentEditable) {
+      return;
+    }
+
+    const text = node.nodeValue;
+    if (!cjkRegex.test(text)) return;
+
+    // Use a DocumentFragment to safely replace the text node without breaking site JS
+    const fragment = document.createDocumentFragment();
+    let lastIndex = 0;
+    let match;
+    cjkRegex.lastIndex = 0; // Reset regex state
+
+    while ((match = cjkRegex.exec(text)) !== null) {
+      // Append text before the Chinese characters
+      if (match.index > lastIndex) {
+        fragment.appendChild(document.createTextNode(text.slice(lastIndex, match.index)));
+      }
+      
+      // Wrap the Chinese characters
+      const span = document.createElement("span");
+      span.className = "cjk-bold-wrap";
+      span.style.webkitTextStroke = "0.35px currentColor"; // Tune this value (e.g. 0.2px - 0.5px)
+      span.textContent = match[0];
+      fragment.appendChild(span);
+      
+      lastIndex = cjkRegex.lastIndex;
+    }
+
+    // Append any remaining text after the last match
+    if (lastIndex < text.length) {
+      fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
+    }
+
+    parent.replaceChild(fragment, node);
+  }
+
+  function scanDOM(root) {
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+    const textNodes = [];
+    while (walker.nextNode()) textNodes.push(walker.currentNode);
+    textNodes.forEach(wrapCJKText);
+  }
+
+  const initScan = () => {
+    // 1. Initial scan on load
+    scanDOM(document.body);
+    
+    // 2. Observe dynamic changes (SPAs, lazy loading, infinite scroll)
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          if (node.nodeType === Node.TEXT_NODE) {
+            wrapCJKText(node);
+          } else if (node.nodeType === Node.ELEMENT_NODE) {
+            scanDOM(node);
+          }
+        });
+      });
+    });
+    
+    observer.observe(document.body, { childList: true, subtree: true });
+  };
+
+  // Wait for body to exist before scanning
+  if (document.body) {
+    initScan();
+  } else {
+    document.addEventListener('DOMContentLoaded', initScan);
+  }
+  // --- NEW CJK BOLDING LOGIC END ---
 })();
