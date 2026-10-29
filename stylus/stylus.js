@@ -2,6 +2,7 @@
   const fontFaces = `
     @font-face {
       font-family: "MyFont";
+      font-weight: 400;
       unicode-range: U+00-024F;
       src: local("BarlowCondensed-Regular");
       src: local("RobotoCondensed-Regular");
@@ -11,24 +12,11 @@
       src: local("UniversNextPro-Cond");
       src: local("UniversLTStd-Cn");
     }
+    /* Bold Latin face. The browser picks 400 vs 700 from the computed font-weight,
+       so headings, strong, th and site-defined weights need no selectors. */
     @font-face {
       font-family: "MyFont";
-      unicode-range: U+4E00-9FFF;
-      src: local("Heiti SC Medium");
-    }
-    @font-face {
-      font-family: "MyFont";
-      unicode-range: U+3040-30FF;
-      src: local("Osaka");
-    }
-    @font-face {
-      font-family: "MyFont";
-      unicode-range: U+E000-F8FF;
-      src: local("Font Awesome 5 Pro");
-    }
-
-    @font-face {
-      font-family: "MyFontBold";
+      font-weight: 700;
       unicode-range: U+00-024F;
       src: local("BarlowCondensed-Bold");
       src: local("RobotoCondensed-Bold");
@@ -38,15 +26,24 @@
       src: local("UniversNextPro-Cond");
       src: local("UniversLTStd-Cn");
     }
+    /* Faces below have a single weight, declared as a range so they serve 400 and 700. */
     @font-face {
-      font-family: "MyFontBold";
+      font-family: "MyFont";
+      font-weight: 400 700;
       unicode-range: U+4E00-9FFF;
       src: local("Heiti SC Medium");
     }
     @font-face {
-      font-family: "MyFontBold";
+      font-family: "MyFont";
+      font-weight: 400 700;
       unicode-range: U+3040-30FF;
       src: local("Osaka");
+    }
+    @font-face {
+      font-family: "MyFont";
+      font-weight: 400 700;
+      unicode-range: U+E000-F8FF;
+      src: local("Font Awesome 5 Pro");
     }
 
     @font-face {
@@ -76,37 +73,28 @@
       font-family: MyFont !important;
     }
 
-    /* Bold */
-    h1, h2, h3, h4, h5, h6,
-    b, strong, em, th,
-    [class*="bold" i],
-    [class*="heading" i],
-    [style*="font-weight:6"],
-    [style*="font-weight:7"],
-    [style*="font-weight:8"],
-    [style*="font-weight:9"],
-    [style*="font-weight: 6"],
-    [style*="font-weight: 7"],
-    [style*="font-weight: 8"],
-    [style*="font-weight: 9"] {
-      font-family: MyFontBold !important;
+    /* Bold comes from the weight-aware MyFont faces, driven by computed font-weight.
+       Only em needs a rule, since the faces have no italic. */
+    em {
+      font-weight: 700;
     }
 
-    /* Monospace / code, across the common editors. Replaces the per-site code rules. */
+    /* Monospace / code, across the common editors. Replaces the per-site code rules.
+       Exact tag and class selectors only: the engine can reject "X *" by checking
+       ancestor tags and classes, which it cannot do for [class*="..."] substrings. */
     code, code *,
     pre, pre *,
     kbd, samp, tt, xmp,
     [style*="monospace"],
-    [class*="monospace" i],
-    [class*="hljs"],
+    .monospace,
+    .hljs, .hljs *,
     .monaco-editor .view-line,
     .monaco-editor .view-line *,
-    [class*="CodeMirror"] *,
-    [class*="cm-content"] *,
-    [class*="cm-line"] *,
-    [class*="ace_"],
-    [class*="code-block" i] *,
-    [class*="codeblock" i] * {
+    .CodeMirror, .CodeMirror *,
+    .cm-content, .cm-content *,
+    .ace_editor, .ace_editor *,
+    .code-block *,
+    .codeblock * {
       font-family: MyFontSrc !important;
       font-variant-ligatures: none;
     }
@@ -166,10 +154,10 @@
         font-family: MyFont !important;
       }
       .heading1, .heading2, .heading3, .heading4, .heading5, .heading6 {
-        font-family: MyFontBold !important;
+        font-weight: 700 !important;
       }
     `,
-    
+
     "google.com": `
       .material-icons-extended {
         font-family: "Material Icons Extended" !important;
@@ -193,11 +181,7 @@
     "weread.qq.com": `
       @font-face {
         font-family: "MyFont";
-        unicode-range: U+4E00-9FFF;
-        src: local("FZSong III-Z05");
-      }
-      @font-face {
-        font-family: "MyFontBold";
+        font-weight: 400 700;
         unicode-range: U+4E00-9FFF;
         src: local("FZSong III-Z05");
       }
@@ -226,93 +210,4 @@
   const styleEl = document.createElement("style");
   styleEl.textContent = fontFaces + globalStyles + getMatchingSiteStyle(location.hostname);
   document.documentElement.append(styleEl);
-
-  // // --- TARGET WEIGHT LOGIC START ---
-  // const targetRanges = [
-  //   "\\u4E00-\\u9FFF", // CJK Unified Ideographs
-  //   "\\u3040-\\u30FF"  // Japanese Hiragana & Katakana
-  // ];
-  
-  // // Dynamically build the regex: /([\u4E00-\u9FFF\u3040-\u30FF]+)/g
-  // const targetRegex = new RegExp(`([${targetRanges.join('')}]+)`, 'g');
-
-  // function wrapTargetText(node) {
-  //   const parent = node.parentNode;
-    
-  //   // Skip invalid parents, already wrapped elements, and code editors/inputs
-  //   if (!parent ||
-  //       ['STYLE', 'SCRIPT', 'NOSCRIPT', 'TEXTAREA', 'TITLE'].includes(parent.nodeName) ||
-  //       parent.classList.contains('custom-weight-wrap') ||
-  //       parent.isContentEditable) {
-  //     return;
-  //   }
-
-  //   const text = node.nodeValue;
-  //   if (!targetRegex.test(text)) return;
-
-  //   // Use a DocumentFragment to safely replace the text node without breaking site JS
-  //   const fragment = document.createDocumentFragment();
-  //   let lastIndex = 0;
-  //   let match;
-  //   targetRegex.lastIndex = 0; // Reset regex state
-
-  //   while ((match = targetRegex.exec(text)) !== null) {
-  //     // Append text before the target characters
-  //     if (match.index > lastIndex) {
-  //       fragment.appendChild(document.createTextNode(text.slice(lastIndex, match.index)));
-  //     }
-      
-  //     // Wrap the target characters
-  //     const span = document.createElement("span");
-  //     span.className = "custom-weight-wrap";
-  //     span.style.fontWeight = "700";
-  //     // span.style.webkitTextStroke = "0.35px currentColor";
-  //     span.textContent = match[0];
-  //     fragment.appendChild(span);
-      
-  //     lastIndex = targetRegex.lastIndex;
-  //   }
-
-  //   // Append any remaining text after the last match
-  //   if (lastIndex < text.length) {
-  //     fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
-  //   }
-
-  //   parent.replaceChild(fragment, node);
-  // }
-
-  // function scanDOM(root) {
-  //   const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
-  //   const textNodes = [];
-  //   while (walker.nextNode()) textNodes.push(walker.currentNode);
-  //   textNodes.forEach(wrapTargetText);
-  // }
-
-  // const initScan = () => {
-  //   // 1. Initial scan on load
-  //   scanDOM(document.body);
-    
-  //   // 2. Observe dynamic changes (SPAs, lazy loading, infinite scroll)
-  //   const observer = new MutationObserver((mutations) => {
-  //     mutations.forEach((mutation) => {
-  //       mutation.addedNodes.forEach((node) => {
-  //         if (node.nodeType === Node.TEXT_NODE) {
-  //           wrapTargetText(node);
-  //         } else if (node.nodeType === Node.ELEMENT_NODE) {
-  //           scanDOM(node);
-  //         }
-  //       });
-  //     });
-  //   });
-    
-  //   observer.observe(document.body, { childList: true, subtree: true });
-  // };
-
-  // // Wait for body to exist before scanning
-  // if (document.body) {
-  //   initScan();
-  // } else {
-  //   document.addEventListener('DOMContentLoaded', initScan);
-  // }
-  // // --- TARGET WEIGHT LOGIC END ---
 })();
