@@ -18,22 +18,44 @@
       src: local("FFGoodProNarr-Bold");
       src: local("UniversLTStd-BoldCn");
     }
-    /* Faces below have a single weight, declared as a range so they serve 400 and 700. */
+    /* Single-weight faces are declared once per weight (400 and 700), never as a
+       "400 700" range. Chrome picks the face by weight before it filters by
+       unicode-range, so a range face wins the 400 match and the Latin 400 face above
+       is never used (Latin falls back to the default serif). Faces with identical
+       weight descriptors are merged, so each weight forms one face across all ranges. */
     @font-face {
       font-family: "MyFont";
-      font-weight: 400 700;
+      font-weight: 400;
       unicode-range: U+4E00-9FFF;
       src: local("Heiti SC Medium");
     }
     @font-face {
       font-family: "MyFont";
-      font-weight: 400 700;
+      font-weight: 700;
+      unicode-range: U+4E00-9FFF;
+      src: local("Heiti SC Medium");
+    }
+    @font-face {
+      font-family: "MyFont";
+      font-weight: 400;
       unicode-range: U+3040-30FF;
       src: local("Osaka");
     }
     @font-face {
       font-family: "MyFont";
-      font-weight: 400 700;
+      font-weight: 700;
+      unicode-range: U+3040-30FF;
+      src: local("Osaka");
+    }
+    @font-face {
+      font-family: "MyFont";
+      font-weight: 400;
+      unicode-range: U+E000-F8FF;
+      src: local("Font Awesome 5 Pro");
+    }
+    @font-face {
+      font-family: "MyFont";
+      font-weight: 700;
       unicode-range: U+E000-F8FF;
       src: local("Font Awesome 5 Pro");
     }
@@ -173,7 +195,13 @@
     "weread.qq.com": `
       @font-face {
         font-family: "MyFont";
-        font-weight: 400 700;
+        font-weight: 400;
+        unicode-range: U+4E00-9FFF;
+        src: local("FZSong III-Z05");
+      }
+      @font-face {
+        font-family: "MyFont";
+        font-weight: 700;
         unicode-range: U+4E00-9FFF;
         src: local("FZSong III-Z05");
       }
