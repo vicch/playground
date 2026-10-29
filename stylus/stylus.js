@@ -16,7 +16,7 @@
       unicode-range: U+00-024F;
       src: local("Helvetica Condensed Bold");
       src: local("FFGoodProNarr-Bold");
-      src: local("UniversLTStd-Cn");
+      src: local("UniversLTStd-BoldCn");
     }
     /* Faces below have a single weight, declared as a range so they serve 400 and 700. */
     @font-face {
