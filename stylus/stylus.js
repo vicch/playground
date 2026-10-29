@@ -16,7 +16,7 @@
       unicode-range: U+00-024F;
       src: local("Helvetica Condensed Bold");
       src: local("FFGoodProNarr-Bold");
-      src: local("UniversLTStd-Cn");
+      src: local("UniversLTStd-BoldCn");
     }
     /* Single-weight faces are declared once per weight (400 and 700), never as a
        "400 700" range. Chrome picks the face by weight before it filters by
