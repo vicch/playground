@@ -4,12 +4,8 @@
       font-family: "MyFont";
       font-weight: 400;
       unicode-range: U+00-024F;
-      src: local("BarlowCondensed-Regular");
-      src: local("RobotoCondensed-Regular");
       src: local("Helvetica Condensed");
-      src: local("AvenirNextCondensed-Regular");
       src: local("FFGoodProNarr-News");
-      src: local("UniversNextPro-Cond");
       src: local("UniversLTStd-Cn");
     }
     /* Bold Latin face. The browser picks 400 vs 700 from the computed font-weight,
@@ -18,12 +14,8 @@
       font-family: "MyFont";
       font-weight: 700;
       unicode-range: U+00-024F;
-      src: local("BarlowCondensed-Bold");
-      src: local("RobotoCondensed-Bold");
       src: local("Helvetica Condensed Bold");
-      src: local("AvenirNextCondensed-DemiBold");
       src: local("FFGoodProNarr-Bold");
-      src: local("UniversNextPro-Cond");
       src: local("UniversLTStd-Cn");
     }
     /* Faces below have a single weight, declared as a range so they serve 400 and 700. */
