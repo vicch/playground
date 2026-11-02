@@ -62,17 +62,39 @@
 
     @font-face {
       font-family: "MyFontSrc";
+      font-weight: 400;
       unicode-range: U+00-024F;
       src: local("Iosevka Condensed");
       src: local("BerkeleyMono-UltraCondensed");
     }
     @font-face {
       font-family: "MyFontSrc";
+      font-weight: 700;
+      unicode-range: U+00-024F;
+      src: local("Iosevka Condensed");
+      src: local("BerkeleyMono-UltraCondensedBd");
+    }
+    @font-face {
+      font-family: "MyFontSrc";
+      font-weight: 400;
       unicode-range: U+4E00-9FFF;
       src: local("Heiti SC Medium");
     }
     @font-face {
       font-family: "MyFontSrc";
+      font-weight: 700;
+      unicode-range: U+4E00-9FFF;
+      src: local("Heiti SC Medium");
+    }
+    @font-face {
+      font-family: "MyFontSrc";
+      font-weight: 400;
+      unicode-range: U+3040-30FF;
+      src: local("Osaka");
+    }
+    @font-face {
+      font-family: "MyFontSrc";
+      font-weight: 700;
       unicode-range: U+3040-30FF;
       src: local("Osaka");
     }
